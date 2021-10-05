@@ -1,3 +1,5 @@
+![Heroku](https://pyheroku-badge.herokuapp.com/?app=plataforma-cine)
+
 # MISION TIC 2022 - Grupo 45
 
 ## Plataforma de cine equipo 6
