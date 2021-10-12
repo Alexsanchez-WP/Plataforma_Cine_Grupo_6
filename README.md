@@ -1,12 +1,17 @@
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=plataforma-cine)
 
-# MISION TIC 2022 - Grupo 45
+# MISIÓN TIC 2022 - Grupo 45
+
+## Estandar de codigo 
+
+ - Indentación a 4 espacios
+ - Dejar espacios entre aperadores logicos y variables 
 
 ## Plataforma de cine equipo 6
 
 ### Recursos
 
- - Enlace a prototipod y Mockups [figma](https://www.figma.com/file/xLzh9cQCBPIWs1Fg90idpW/Plataforma-de-Cinema?node-id=0%3A1)
+ - Enlace a prototipo y Mockups [Figma](https://www.figma.com/file/xLzh9cQCBPIWs1Fg90idpW/Plataforma-de-Cinema?node-id=0%3A1)
  - Fuentes de google fonts [Link](https://fonts.google.com/specimen/Open+Sans?query=Open+S)
     -  Light 300 y Medium 500 
     ```HTML
