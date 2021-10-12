@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unicentro - Cine Colombia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;500&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/css.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/w3.css')}}">
+    {% endblock %}
+</head>
+<body>
+        <!-- Menú de navegación Principal-->
+        {% block nav_h %}
+        <div class="topnav" id="myTopnav">
+            <a href="/"><img src="/static/img/logo.png" alt="Logo Unicentro" width="60px"></a>
+            <a href="/">Inicio</a>
+            <a href="estrenos">Próximos Estrenos</a>
+            <a href="cartelera">Cartelera</a>
+            <a href="buscar_pelicula" class="w3-bar-item w3-right"><i class="fa fa-search"></i></a>
+            <a href="login" class="w3-right" id="r1">Iniciar Sesión</a>
+            <a href="registro" class="w3-right" id="r2">Registrarse</a>
+            
+            <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+              <i class="fa fa-bars"></i>
+            </a>
+        </div>
+        {% endblock %}
+        
+        {%block content %}
+        {% endblock %}
+
+        {% block estrenos %}
+        {% endblock %}
+
+        {% block sesion %}
+        {% endblock %}
+
+        {% block registro %}
+        {% endblock %}
+
+        {% block cartelera %}
+        {% endblock %}
+
+        {% block ticket %}
+        {% endblock %}
+
+        {% block buscar %}
+        {% endblock %}
+
+       
+
+
+            <!-- Footer Principal -->
+    {% block pie %}
+    <footer class="w3-container  w3-center w3-xlarge color-footer">
+        <div class="w3-row-padding">
+            <div class="w3-col s4">
+              <h3 class="color-h">Sobre Nosotros</h3>
+              <p style="text-align: left;" class="color-f">
+                Desde el Centro Comercial Unicentro Medellín trabajamos para que la cultura,
+                 la diversión y el entretenimiento sean los pilares de nuestras acciones diarias
+                  y gracias a su continua transformación, hoy vemos llegar de nuevo miles de amigos
+                   que buscan compartir emociones, historias, amor y muchos momentos únicos e inolvidables.
+              </p>      
+            </div>
+          
+            <div class="w3-col s8 ">
+              <h3 class="color-h">Aliados</h3>
+              <ul class="w3-ul">
+                <li class="w3-margin"><!--Aquí-->
+                    <img src="/static/img/cine-logo.png" height="80px">  
+                    <img src="/static/img/McDonalds.png" height="80px">
+                    <img src="/static/img/exito.png" height="80px">
+                    <img src="/static/img/japon.png" height="80px">
+                    <img src="/static/img/logo.png" height="80px">
+                </li> 
+              </ul>
+            </div>
+        </div>
+    
+    
+        <div class="w3-section">
+          <i class="fa fa-facebook-official w3-hover-opacity"></i>
+          <i class="fa fa-twitter w3-hover-opacity"></i>
+          <i class="fa fa-instagram w3-hover-opacity"></i>
+          <i class="fa fa-youtube w3-hover-opacity"></i>
+          <i class="fa fa-snapchat w3-hover-opacity"></i>
+          <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+          <i class="fa fa-linkedin w3-hover-opacity"></i>
+        </div>
+        <p class="w3-medium color-h">&copy; Todos los Derechos Reservados 2021</p>
+      </footer>
+      {% endblock %}
+
+        {% block script %}
+        <script src="{{url_for('static', filename='js/js.js')}}"></script>
+        {% endblock %}
+
+</body>
+
+
+
