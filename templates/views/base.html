@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Titulo dinamico  -->
     {% if title %}
-    <title>{{ titulo }}</title>
+    <title>Unicentro - {{ title }}</title>
     {% else %}
     <title>Unicentro - Cine Colombia</title>
     {% endif %}
@@ -28,21 +28,27 @@
 
 <body>
     <!-- Menú de navegación Principal-->
-    {% block nav_h %}
     <div class="topnav" id="myTopnav">
         <a href="/"><img src="/static/img/logo.png" alt="Logo Unicentro" width="60px"></a>
         <a href="/">Inicio</a>
-        <a href="estrenos">Próximos Estrenos</a>
-        <a href="cartelera">Cartelera</a>
-        <a href="buscar_pelicula" class="w3-bar-item w3-right"><i class="fa fa-search"></i></a>
-        <a href="login" class="w3-right" id="r1">Iniciar Sesión</a>
-        <a href="registro" class="w3-right" id="r2">Registrarse</a>
+        <a href="/estrenos/">Próximos Estrenos</a>
+        <a href="/cartelera/">Cartelera</a>
+        <a href="/buscar-pelicula/" class="w3-bar-item w3-right">
+            <i class="fa fa-search"></i>
+        </a>
+
+        {% if 'usr_id' in session %}
+        <a href="/logout/" class=" w3-right" id="r1">Logout</a>
+        {% else %}
+        <a href="/login/" class="w3-right" id="r1">Iniciar Sesión</a>
+        <a href="/registro/" class="w3-right" id="r2">Registrarse</a>
+        {% endif %}
 
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
     </div>
-    {% endblock %}
+
 
     {%block content %}
     {% endblock %}

@@ -1,14 +1,19 @@
 # Incluimos las referencias
+import os
 from logging import debug
 from flask import Flask, render_template, request
 from markupsafe import escape
-from formularios import Login,Registro
+from formularios import Login, Registro
 
 # Creamos el objeto Flask
 app = Flask(__name__)
+app.secret_key = os.urandom(24)
+
 
 # Construimos los decoradores :: Rutas
 @app.route('/')
+@app.route('/home/')
+@app.route('/index/')
 def index():
     # Renderizamos la pagina HTML Inicial o HOMEPAGE
     return render_template('index.html')
@@ -26,7 +31,7 @@ def cartelera():
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
-    log=Login()
+    log = Login()
     if request.method == 'GET':
         return render_template('login.html', form=log)
     else:
@@ -48,21 +53,25 @@ def recuperar():
 
 @app.route('/registro/', methods=['GET', 'POST'])
 def registro():
-    reg=Registro()
-    nmbr=escape(request.form["nombre"])
-    aplld=escape(request.form["apellido"])
-    eml=escape(request.form["correo"])
-    emlCnfrmr=escape(request.form["confirmar_correo"])
-    psswrd=escape(request.form["clave"])
-    psswrdCnfrmr=escape(request.form["confirmar_clave"])
-    ncmnt=escape(request.form["nacimiento"])
-    mncp=escape(request.form["municipio"])
-    cdd=escape(request.form["ciudad"])
-    drccn=escape(request.form["direccion"])
-    tlfn=escape(request.form["telefono"])
-    usr=escape(request.form["usuario"])
 
-    return render_template('registro.html',form=reg)
+    reg = Registro()
+
+    if request.method == 'GET':
+        return render_template('registro.html', form=reg, title="Registro")
+    else:
+
+        nmbr = escape(request.form["nombre"])
+        aplld = escape(request.form["apellido"])
+        eml = escape(request.form["correo"])
+        emlCnfrmr = escape(request.form["confirmar_correo"])
+        psswrd = escape(request.form["clave"])
+        psswrdCnfrmr = escape(request.form["confirmar_clave"])
+        ncmnt = escape(request.form["nacimiento"])
+        mncp = escape(request.form["municipio"])
+        cdd = escape(request.form["ciudad"])
+        drccn = escape(request.form["direccion"])
+        tlfn = escape(request.form["telefono"])
+        usr = escape(request.form["usuario"])
 
 
 @app.route('/tiquetes/', methods=['GET', 'POST'])
