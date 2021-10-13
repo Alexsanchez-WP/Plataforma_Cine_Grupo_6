@@ -30,8 +30,8 @@ def login():
     if request.method == 'GET':
         return render_template('login.html', form=log)
     else:
-        user = escape(request.form['Usuario'])
-        password = escape(request.form['Clave'])
+        user = escape(request.form['usuario'])
+        password = escape(request.form['clave'])
 
         return f"Bienvenido {user} !!!"
 
@@ -42,7 +42,7 @@ def recuperar():
         return render_template('recuperacion.html')
     else:
         email = escape(request.form['idTxtEmailRecorey'])
-        
+
         return f"Se han enviando los datos al correo {email}"
 
 
