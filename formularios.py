@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import TextField, PasswordField, SubmitField
-from wtforms.fields.html5 import EmailField
+from wtforms.fields.html5 import EmailField, DateField
 from wtforms.validators import InputRequired, Length, EqualTo
 
 
@@ -30,11 +30,6 @@ class Registro(FlaskForm):
         InputRequired(message='El apellido es requerido')
     ])
 
-    telefono = TextField('Telefono *', validators=[
-        Length(min=7, max=20, message='Longitud fuera de rango'),
-        InputRequired(message='El telefono es requerido')
-    ])
-
     correo = EmailField('Email *', validators=[
         Length(min=3, max=100, message='Longitud fuera de rango'),
         InputRequired(message='Email es requerido')
@@ -44,11 +39,6 @@ class Registro(FlaskForm):
         Length(min=3, max=100, message='Longitud fuera de rango'),
         InputRequired(message='Email es requerido'),
         EqualTo(correo, message='El correo y su verificación no corresponden')
-    ])
-
-    usuario = TextField('Usuario *', validators=[
-        Length(min=5, max=40, message='Longitud fuera de rango'),
-        InputRequired(message='Usuario es requerido')
     ])
 
     clave = PasswordField('Clave *', validators=[
@@ -62,6 +52,10 @@ class Registro(FlaskForm):
         EqualTo(clave, message='La clave y su verificación no corresponden')
     ])
 
+    nacimiento = DateField('Fecha de nacimiento *', validators=[
+        InputRequired(message='Fecha de nacimiento es requerida')
+    ])
+
     municipio = TextField('Municipio *', validators=[
         Length(min=5, max=40, message='Longitud fuera de rango'),
         InputRequired(message='El municipio es requerido')
@@ -70,6 +64,21 @@ class Registro(FlaskForm):
     cuidad = TextField('Ciudad *', validators=[
         Length(min=5, max=40, message='Longitud fuera de rango'),
         InputRequired(message='La Ciudad es requerido')
+    ])
+
+    direccion = TextField('Dirección *', validators=[
+        Length(min=7, max=100, message='Longitud fuera de rango'),
+        InputRequired(message='La dirección es requerido')
+    ])
+
+    telefono = TextField('Telefono *', validators=[
+        Length(min=7, max=20, message='Longitud fuera de rango'),
+        InputRequired(message='El telefono es requerido')
+    ])
+
+    usuario = TextField('Usuario *', validators=[
+        Length(min=5, max=40, message='Longitud fuera de rango'),
+        InputRequired(message='Usuario es requerido')
     ])
 
     boton = SubmitField('Registrar')
