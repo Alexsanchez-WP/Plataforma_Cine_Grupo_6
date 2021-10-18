@@ -5,7 +5,7 @@ from wtforms.validators import InputRequired, Length, EqualTo
 
 
 class Login(FlaskForm):
-    usuario = TextField('Usuario *', validators=[
+    usuario = EmailField('Correo *', validators=[
         Length(min=5, max=40, message='Longitud fuera de rango'),
         InputRequired(message='Usuario es requerido')
     ])
@@ -20,7 +20,7 @@ class Login(FlaskForm):
 
 class Registro(FlaskForm):
 
-    nombre = TextField('Nombre *', validators=[
+    nombre = TextField('Nombres *', validators=[
         Length(min=1, max=100, message='Longitud fuera de rango'),
         InputRequired(message='El nombre es requerido')
     ])
@@ -30,14 +30,14 @@ class Registro(FlaskForm):
         InputRequired(message='El apellido es requerido')
     ])
 
-    correo = EmailField('Email *', validators=[
+    correo = EmailField('Correo *', validators=[
         Length(min=3, max=100, message='Longitud fuera de rango'),
-        InputRequired(message='Email es requerido')
+        InputRequired(message='Correo  es requerido')
     ])
 
-    confirmar_correo = EmailField('Verificación de Email *', validators=[
+    confirmar_correo = EmailField('Verificación de Correo *', validators=[
         Length(min=3, max=100, message='Longitud fuera de rango'),
-        InputRequired(message='Email es requerido'),
+        InputRequired(message='Correo es requerido'),
         EqualTo(correo, message='El correo y su verificación no corresponden')
     ])
 
@@ -56,12 +56,12 @@ class Registro(FlaskForm):
         InputRequired(message='Fecha de nacimiento es requerida')
     ])
 
-    municipio = TextField('Municipio *', validators=[
+    municipio = TextField('Departamento *', validators=[
         Length(min=5, max=40, message='Longitud fuera de rango'),
         InputRequired(message='El municipio es requerido')
     ])
 
-    cuidad = TextField('Ciudad *', validators=[
+    ciudad = TextField('Ciudad *', validators=[
         Length(min=5, max=40, message='Longitud fuera de rango'),
         InputRequired(message='La Ciudad es requerido')
     ])
@@ -71,14 +71,9 @@ class Registro(FlaskForm):
         InputRequired(message='La dirección es requerido')
     ])
 
-    telefono = TextField('Telefono *', validators=[
+    telefono = TextField('Telefono / Celular *', validators=[
         Length(min=7, max=20, message='Longitud fuera de rango'),
         InputRequired(message='El telefono es requerido')
-    ])
-
-    usuario = TextField('Usuario *', validators=[
-        Length(min=5, max=40, message='Longitud fuera de rango'),
-        InputRequired(message='Usuario es requerido')
     ])
 
     boton = SubmitField('Registrar')

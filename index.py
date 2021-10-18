@@ -1,9 +1,11 @@
 # Incluimos las referencias
 import os
 from logging import debug
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, flash
 from markupsafe import escape
+from werkzeug.utils import redirect
 from formularios import Login, Registro
+from db.bd_class import Users
 
 # Creamos el objeto Flask
 app = Flask(__name__)
@@ -38,7 +40,16 @@ def login():
         user = escape(request.form['usuario'])
         password = escape(request.form['clave'])
 
-        return f"Bienvenido {user} !!!"
+        for User in Users:
+            if(User['email'] == user.strip() and User['password'] == password.strip()):
+                session['user_data'] = User
+                if(User['role'] == 'admin'):
+                    flash(
+                        f"{User['name']}, Bienvenido al area administrativa")
+                    return redirect('/admin/')
+
+        flash("El correo o la contraseña no son validos")
+        return render_template('login.html', form=log)
 
 
 @app.route('/recuperar-password/', methods=['GET', 'POST'])
@@ -87,6 +98,19 @@ def funciones():
 @app.route('/buscar-pelicula/', methods=['GET', 'POST'])
 def buscarPelicula():
     return render_template('buscar_pelicula.html')
+
+
+""" Admin Area"""
+
+
+@app.route('/admin/')
+def admin():
+    if session.get('user_data'):
+        if session.get('user_data')['role'] == 'admin':
+            return render_template('admin/index.html')
+
+    flash("No tiene permiso para ingresar a esta área")
+    return redirect('/login/')
 
 
 """-------------------------------------------------------------------------------------------------------------"""
