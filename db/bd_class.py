@@ -7,10 +7,31 @@ Este archivo es temporal, se deben implementar el diagrama de clases para la con
 Users = [
     {
         'ID': '1',
+        'email': 'superadmin@admin.com',
+        'password': '12345678',
+        'name': 'Super Administrador',
+        'role': 'admin'
+    },
+    {
+        'ID': '2',
         'email': 'admin@admin.com',
         'password': '12345678',
         'name': 'Administrador',
-        'role': 'admin'
+        'role': 'user'
+    },
+    {
+        'ID': '3',
+        'email': 'cliente1@admin.com',
+        'password': '12345678',
+        'name': 'Cliente',
+        'role': 'customer'
+    },
+    {
+        'ID': '4',
+        'email': 'cliente2@admin.com',
+        'password': '12345678',
+        'name': 'Cliente',
+        'role': 'customer'
     }
 ]
 
@@ -24,6 +45,7 @@ Comments = [
 
 Films = [
     {
+        'ID': '1',
         'image': 'img/films/AD2_2-Poster_480x670.jpg',
         'banner': 'img/films/AD2_3-Imagen-Trailer-(Foto)_1000x510.jpg',
         'trailer': 'https://www.youtube.com/embed/MUD32RTh_qQ',
@@ -35,6 +57,7 @@ Films = [
         'description': 'La escalofriante familia favorita de todos está de regreso en esta nueva secuela animada de comedia Los Locos Addams 2. En esta nueva película, Los Addams se enredan en aventuras chifladas y se ven envueltos en divertidísimos encuentros con todo tipo de personajes desprevenidos. Siempre manteniéndose fieles a ellos mismos, Los Locos Addams llevan su icónica espeluznante y excéntrica personalidad a donde sea que vayan.',
     },
     {
+        'ID': '2',
         'image': 'img/films/BOND_2-Poster_480x670.jpg',
         'banner': 'img/films/BOND_3-Imagen-Trailer-(Foto)_1000x510.jpg',
         'trailer': 'https://www.youtube.com/embed/Yq4KfMa4_9s',
@@ -44,7 +67,9 @@ Films = [
         'director': 'Cary Joji Fukunaga ',
         'categories': 'Acción',
         'description': 'En Sin Tiempo Para Morir, Bond ha dejado el servicio activo y disfruta de una vida tranquila en Jamaica. Su paz es efímera cuando su viejo amigo Félix Leiter de la CIA aparece pidiendo ayuda. La misión de rescatar a un científico secuestrado resulta ser mucho más traicionera de lo esperado, llevando a Bond a la pista de un misterioso villano armado con nueva tecnología peligrosa. '
-    },    {
+    },
+    {
+        'ID': '3',
         'image': 'img/films/El_Ultimo_Duelo Poster Pagina detalle 480x670.png',
         'banner': 'img/films/El_Ultimo_Duelo Banner Derecho 510x510.jpg',
         'trailer': 'https://www.youtube.com/embed/TDxJHR_LZmE',

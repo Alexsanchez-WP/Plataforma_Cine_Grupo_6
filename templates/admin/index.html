@@ -1,9 +1,12 @@
 {% extends 'views/admin.html' %}
 
-{% for mesg in get_flashed_messages() %}
-<h1>{{ mesg }}</h1>
-{% endfor %}
-
 {% block content %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 
 {% endblock %}

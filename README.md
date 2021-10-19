@@ -1,5 +1,7 @@
 ![Heroku](https://pyheroku-badge.herokuapp.com/?app=plataforma-cine)
 
+> live [aqui](https://plataforma-cine.herokuapp.com/)
+
 # MISIÓN TIC 2022 - Grupo 45
 
 ## Estandar de codigo 
@@ -32,3 +34,6 @@
     }    
     ```
  - Carpeta en Driver entregables, rubrica y sesiones [Driver](https://drive.google.com/drive/folders/1QUIfvecqKZWQcVSQzuGMWpGb0N5EyqKD)    
+
+
+> ***Plataforma creada con fines educativos; los logos y marcas mencionadas son propiedad de sus empresas respectivas***.

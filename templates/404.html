@@ -1,0 +1,40 @@
+{% extends 'views/base.html' %}
+
+<!-- scripts y estilos -->
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nicepage.css')}}" media="screen">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css')}}" media="screen">
+
+{% endblock %}
+
+
+<!-- Formualrio  -->
+{%block sesion %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<section class="u-clearfix u-custom-color-3 u-section-1" id="sec-d901">
+    <div class="u-clearfix u-sheet u-sheet-1">
+        <div
+            class="u-container-style u-custom-color-1 u-expanded-width-md u-expanded-width-sm u-expanded-width-xs u-group u-radius-30 u-shape-round u-group-1">
+            <div class="u-container-layout u-container-layout-1">
+                <div class="u-shape u-shape-svg u-text-palette-1-base u-shape-1">
+                    <img src="{{url_for('static', filename='img/logo.png')}}" alt="Logo" width="150">
+                </div>
+                <div class="u-form u-form-1" style="text-align: center; ">
+                    <h3>Error 404</h3>
+                    <p>La pagina solicitada no ha sido encontrada :(</p>
+                    <button type="button" class="btn btn-primary btn-lg mt-3" onclick="window.history.back(); ">
+                        Regresar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock%}

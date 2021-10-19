@@ -6,7 +6,7 @@
   width: 760px;
   min-height: 470px;
   background-image: none;
-  margin: 150px auto 60px;
+  margin: 100px auto 60px;
 }
 
 .u-section-1 .u-container-layout-1 {
@@ -71,7 +71,7 @@
 
 @media (max-width: 1199px) {
   .u-section-1 .u-group-1 {
-    margin-top: 150px;
+    margin-top: 100px;
   }
   .u-section-1 .u-shape-1 {
     margin-top: 17px;
@@ -93,7 +93,7 @@
     min-height: 857px;
   }
   .u-section-1 .u-group-1 {
-    margin-top: 150px;
+    margin-top: 100px;
     margin-right: initial;
     margin-left: initial;
     width: auto;

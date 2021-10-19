@@ -7,12 +7,12 @@ from wtforms.validators import InputRequired, Length, EqualTo
 class Login(FlaskForm):
     usuario = EmailField('Correo *', validators=[
         Length(min=5, max=40, message='Longitud fuera de rango'),
-        InputRequired(message='Usuario es requerido')
+        InputRequired(message='El correo es requerido')
     ])
 
     clave = PasswordField('Clave *', validators=[
-        Length(min=5, max=40, message='Longitud fuera de rango'),
-        InputRequired(message='Clave es requerido')
+        Length(min=8, max=40, message='Longitud fuera de rango'),
+        InputRequired(message='la clave es requerida')
     ])
 
     boton = SubmitField('Ingresar')
@@ -20,8 +20,8 @@ class Login(FlaskForm):
 
 class Registro(FlaskForm):
 
-    nombre = TextField('Nombres *', validators=[
-        Length(min=1, max=100, message='Longitud fuera de rango'),
+    nombre = TextField('Nombres *', [
+        Length(min=5, max=100, message='Longitud fuera de rango'),
         InputRequired(message='El nombre es requerido')
     ])
 

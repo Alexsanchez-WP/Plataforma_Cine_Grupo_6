@@ -1,0 +1,142 @@
+{% extends 'views/admin.html' %}
+
+{% block content %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUser">
+    Crear nuevo usuario
+</button>
+
+<table class="mt-5 table table-striped table-inverse table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td scope="row">{{ user.ID }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+
+                <a class="btn btn-primary" href="/admin/usuario/{{user.ID}}" role="button">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#editUser-{{user.ID}}">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+                <form class="d-inline" action="/admin/usuario/eliminar/{{user.ID}}" method="post">
+                    <button type="submit" class="btn btn-danger" onclick="
+                            event.preventDefault();
+                            confirm('Seguro que desea eliminar el usuario {{ user.name }}');
+                            event.target.form.submit();
+                    ">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="editUser-{{user.ID}}" tabindex="-1" aria-labelledby="editUser-{{user.ID}}Label"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar el usuario "{{ user.name }}"</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-form-{{user.ID}}" action="/admin/usuario/editar/{{ user.ID }}" method="post">
+                            <div class="mb-3">
+                                <label for="" class="form-label">Nombre</label>
+                                <input type="text" name="nombre" class="form-control" placeholder=""
+                                    aria-describedby="helpId" value="{{ user.name }}">
+                                <small id="helpId" class="text-muted">Agrege el nuevo nombre</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Correo</label>
+                                <input type="email" class="form-control" value="{{ user.email }}" readonly
+                                    aria-describedby="helpId" value="">
+                                <small id="helpId" class="text-muted">El correo no se puede editar</small>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="" class="form-label">Contraseña</label>
+                                <input type="password" name="clave" class="form-control" placeholder=""
+                                    aria-describedby="helpId">
+                                <small id="helpId" class="text-muted">Cambiar de contraseña</small>
+                            </div>
+                            <div class="mb-3">
+                                <label for="" class="form-label">Nuevo rol</label>
+                                <select class="form-control" name="rol">
+                                    <option>{{ user.role }}</option>
+                                    <option value="admin">Super Administrador</option>
+                                    <option value="user">Administrador</option>
+                                    <option value="customer">Cliente</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="
+                                event.preventDefault();
+                                document.getElementById('edit-form-{{user.ID}}').submit();
+                            ">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- Modal para crear-->
+<div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    Add rows here
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+{% endblock %}

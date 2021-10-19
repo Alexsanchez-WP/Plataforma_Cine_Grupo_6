@@ -23,6 +23,7 @@
                 <div class="u-form u-form-1">
                     <form action="/registro/" method="POST"
                         class="u-clearfix u-form-spacing-30 u-form-vertical u-inner-form" style="padding: 0px;">
+                        {{ form.csrf_token }}
                         <div class="u-form-group u-form-name u-form-group-1">
                             {{ form.nombre.label }}
                             {{ form.nombre(
@@ -30,6 +31,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-1",
                             placeholder="Nombres Completos"
                             ) }}
+                            {% if form.nombre.errors %}
+                            <ul class="nav">
+                                {% for error in form.nombre.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-group-2">
                             {{ form.apellido.label }}
