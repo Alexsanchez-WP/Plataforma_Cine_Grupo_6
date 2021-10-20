@@ -4,11 +4,35 @@ from markupsafe import escape
 from werkzeug.utils import redirect
 from formularios import Login, Registro
 from db.bd_class import Users, Films
+import sqlite3
 
 # Creamos el objeto Flask
 app = Flask(__name__)
 app.secret_key = '5%B7*WsYk^9#gXFo!bqxnL8TeBB%TBui*P6Y5UKW3XMe3mWi'
 
+
+
+""" Funcion de la Query para Insertar, Eliminar o Actualizar datos"""
+def ejecutar_query_accion(query,datos) -> int:
+    try:
+        with sqlite3.connect('db_cinema.db') as con:
+            cur = con.cursor()
+            sal=cur.execute(query,datos).rowcount
+            if sal!=0:
+                con.commit()
+    except Exception as ex:
+        sal =0
+    return sal
+
+"""Funcion para traer datos """
+def ejecutar_query_seleccion(query) -> list:
+    try:
+        with sqlite3.connect('db_cinema.db') as con:
+            cur = con.cursor()
+            sal=cur.execute(query).fetchall()
+    except Exception as ex:
+        sal = []
+    return sal
 
 # Error 404
 @app.errorhandler(404)
