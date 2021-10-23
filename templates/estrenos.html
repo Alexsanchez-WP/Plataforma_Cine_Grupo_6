@@ -1,5 +1,114 @@
 {% extends 'views/base.html'%}
 
 {% block estrenos %}
-<h1>Contenido estrenos </h1>
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <met name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cartelera.css')}}" media="screen">
+
+        	
+																																											
+
+  
+  <body data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">
+  
+    <div class="container container--full-width u-pt--mobile u-pb-7-mobile u-pt-0-desktop">
+      <div class="columns is-hidden-touch">
+        <div class="column">
+          <h2 class="title is-10 is-uppercase">Próximos Extrenos</h2>
+        </div>
+    </div>
+     
+    <div class="columns is-multiline columns--slim">
+
+        <div data-aos="fade-up" data-aos-delay="200" class="column is-3 aos-init aos-animate">  <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <span class="movie-item__badge movie-item__badge--yellow-2">Próximo</span>
+            <figure class="movie-item__image">
+              <img src="/static/img/eternals.jpg">
+            </figure>
+          </div>
+        
+          <div class="movie-item__basics">
+           <h2 class="movie-item__title">                               Eternos                                         </h2> 
+              <span class="movie-item__meta movie-item__meta--bold">    Título en inglés:   Eternals                    </span> 
+              <span class="movie-item__meta">                           Estreno: 4-Nov-2021                             </span> 
+              <span class="movie-item__meta">                           Género: Ciencia ficción, Acción y Aventura      </span>
+                <div class="movie-item__tags tags">
+                  <span class="tag"><div class="ezselection-field">     Recomendada para Mayores de 13 años             </div></span> 
+                <span class="tag">                                      157 Min                                         </span></div>
+          </div>
+    </a></div>
+
+
+    <div data-aos="fade-up" data-aos-delay="200" class="column is-3 aos-init aos-animate">  <a href="#" class="movie-item">
+        <div class="movie-item__image-wrapper">
+          <span class="movie-item__badge movie-item__badge--yellow-2">Próximo</span>
+          <figure class="movie-item__image">
+            <img src="/static/img/Spiderman.png" >
+          </figure>
+        </div>
+        
+        <div class="movie-item__basics">
+        <h2 class="movie-item__title">                                Spider-Man: Sin camino a casa                  </h2> 
+            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Spider-Man: No Way Home      </span> 
+            <span class="movie-item__meta">                           Estreno: 17-Dic-2021                           </span> 
+            <span class="movie-item__meta">                           Género: Ciencia ficción, Acción y Fantasia     </span>
+              <div class="movie-item__tags tags">
+                <span class="tag"><div class="ezselection-field">     Recomendada para Mayores de 12 años            </div></span> 
+              <span class="tag">                                      150 Min                                        </span></div>
+        </div>   
+    </a></div>
+        
+      
+
+    <div data-aos="fade-up" data-aos-delay="200" class="column is-3 aos-init aos-animate">  <a href="#" class="movie-item">
+      <div class="movie-item__image-wrapper">
+        <span class="movie-item__badge movie-item__badge--yellow-2">Próximo</span>
+        <figure class="movie-item__image">
+          <img src="/static/img/espia.jpg" >
+        </figure>
+      </div>
+      
+      <div class="movie-item__basics">
+      <h2 class="movie-item__title">                                El espia inglés 2                              </h2> 
+          <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: The Courier 2               </span> 
+          <span class="movie-item__meta">                           Estreno: 1-Nov-2021                           </span> 
+          <span class="movie-item__meta">                           Género: Drama                                 </span>
+            <div class="movie-item__tags tags">
+              <span class="tag"><div class="ezselection-field">     Recomendada para Mayores de 12 años            </div></span> 
+            <span class="tag">                                      121 Min                                        </span></div>
+      </div>   
+  </a></div>
+      
+
+  <div data-aos="fade-up" data-aos-delay="200" class="column is-3 aos-init aos-animate">  <a href="#" class="movie-item">
+    <div class="movie-item__image-wrapper">
+      <span class="movie-item__badge movie-item__badge--yellow-2">Próximo</span>
+      <figure class="movie-item__image">
+        <img src="/static/img/fabricadesueños.png" >
+      </figure>
+    </div>
+    
+    <div class="movie-item__basics">
+    <h2 class="movie-item__title">                                Fábrica de Sueños                             </h2> 
+        <span class="movie-item__meta movie-item__meta--bold">    Título en inglés:   Dream Factory             </span> 
+        <span class="movie-item__meta">                           Estreno: 2-Nov-2021                           </span> 
+        <span class="movie-item__meta">                           Género: Drama, Romance                        </span>
+          <div class="movie-item__tags tags">
+            <span class="tag"><div class="ezselection-field">     Recomendada para Mayores de 7 años            </div></span> 
+          <span class="tag">                                      125 Min                                        </span></div>
+    </div>   
+  </a></div>
+
+
+
+          
+      </div>
+    </div>
+    </section>
+
 {% endblock %}
