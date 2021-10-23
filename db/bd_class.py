@@ -1,3 +1,31 @@
+import sqlite3
+
+""" Funcion de la Query para Insertar, Eliminar o Actualizar datos"""
+
+
+def ejecutar_query_accion(query, datos) -> int:
+    try:
+        with sqlite3.connect('db/bd_cinema.db') as con:
+            cur = con.cursor()
+            sal = cur.execute(query, datos).rowcount
+            if sal != 0:
+                con.commit()
+    except Exception as ex:
+        sal = 0
+    return sal
+
+
+"""Funcion para traer datos """
+
+
+def ejecutar_query_seleccion(query) -> list:
+    try:
+        with sqlite3.connect('db/bd_cinema.db') as con:
+            cur = con.cursor()
+            sal = cur.execute(query).fetchall()
+    except Exception as ex:
+        sal = []
+    return sal
 
 
 """

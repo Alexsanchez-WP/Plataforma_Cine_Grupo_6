@@ -10,57 +10,29 @@
 {% endfor %}
 
 
-<div class="card">
-    <img class="card-img-top" src="https://joeschmoe.io/api/v1/male/{{ user.name }}" alt="Avatar" width="150"
-        height="150">
-    <div class="card-body">
-        <h4 class="card-title">{{ user.name }}</h4>
-        <p class="card-text">Correo: <strong>{{ user.email }}</strong></p>
-        <p class="card-text">Rol: <strong>{{ user.role }}</strong></p>
-    </div>
-</div>
-
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-warning btn-sm mt-5" data-bs-toggle="modal" data-bs-target="#editUser">
-    Editar usuario <i class="fa fa-edit" aria-hidden="true"></i>
-</button>
-
-<!-- Modal para crear-->
-<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    Add rows here
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
+<div class="mt-2 mb-4 bg-light border border-secondary rounded-3">
+    <div class="container-fluid py-5">
+        <img class="card-img-top" src="https://joeschmoe.io/api/v1/male/{{ user[1] }}" alt="Avatar" width="150"
+            height="150">
+        <div class="card-body">
+            <h4 class="card-title">{{ user[1] + ' ' + user[2]}}</h4>
+            <p class="card-text">ID: <strong>{{ user[0] }}</strong></p>
+            <p class="card-text">Correo: <strong>{{ user[3] }}</strong></p>
+            <p class="card-text">Nacimiento: <strong>{{ user[5] }}</strong></p>
+            <p class="card-text">Departamento: <strong>{{ user[6] }}</strong></p>
+            <p class="card-text">Ciudad: <strong>{{ user[7] }}</strong></p>
+            <p class="card-text">Direccion: <strong>{{ user[8] }}</strong></p>
+            <p class="card-text">Telefono: <strong>{{ user[9] }}</strong></p>
+            <p class="card-text">Estado: <strong>{{ 'Activo' if user[10] else 'Inactivo' }}</strong></p>
+            <p class="card-text">Creado el: <strong>{{ user[11] }}</strong></p>
+            <p class="card-text">Rol <strong>{{ roles[user[12]-1][1] }}</strong></p>
         </div>
     </div>
 </div>
 
-{% endblock %}
-
-
-{% block scripts %}
-<script>
-    var editUser = document.getElementById('editUser');
-
-    editUser.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        let button = event.relatedTarget;
-        // Extract info from data-bs-* attributes
-        let recipient = button.getAttribute('data-bs-whatever');
-
-        // Use above variables to manipulate the DOM
-    });
-</script>
+<a class="btn btn-primary my-5" href="/admin/usuarios" role="button">
+    <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+    Regresar
+</a>
 
 {% endblock %}

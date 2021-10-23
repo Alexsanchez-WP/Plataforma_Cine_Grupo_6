@@ -51,14 +51,13 @@
                 <div class="sidebar-header">
                     <div class="user-pic">
                         <img class="img-responsive img-rounded"
-                            src="https://joeschmoe.io/api/v1/male/{{ session['user_data'].name }}" width="100"
+                            src="https://joeschmoe.io/api/v1/male/{{ session['user_data'][1] }}" width="100"
                             height="100" alt="User picture">
                     </div>
                     <div class="user-info">
                         <span class="user-name">
-                            <strong>{{ session['user_data'].name }}</strong>
+                            <strong>{{ session['user_data'][1] + ' '+ session['user_data'][2] }}</strong>
                         </span>
-                        <span class="user-role">{{ session['user_data'].role }}</span>
                     </div>
                 </div>
                 <!-- sidebar-search  -->
@@ -67,7 +66,7 @@
                         <li class="header-menu">
                             <span>Menú</span>
                         </li>
-                        {% if session['user_data'].role == 'admin' %}
+                        {% if session['user_data'][12] == 3 %}
                         <li>
                             <a href="/admin/usuarios" class="d-flex justify-content-between">
                                 <div>

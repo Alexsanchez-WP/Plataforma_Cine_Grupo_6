@@ -9,6 +9,7 @@
 </div>
 {% endfor %}
 
+<h1 class="h2 my-3">Usuarios</h1>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createUser">
     Crear nuevo usuario
@@ -26,25 +27,26 @@
     <tbody>
         {% for user in users %}
         <tr>
-            <td scope="row">{{ user.ID }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
+            <td scope="row">{{ user[0] }}</td>
+            <td>{{ user[1] +' '+ user[2] }}</td>
+            <td>{{ user[3] }}</td>
             <td>
 
-                <a class="btn btn-primary" href="/admin/usuario/{{user.ID}}" role="button">
+                <a class="btn btn-primary" href="/admin/usuario/{{user[0]}}" role="button">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                    data-bs-target="#editUser-{{user.ID}}">
+                    data-bs-target="#editUser-{{user[0]}}">
                     <i class="fa fa-edit" aria-hidden="true"></i>
                 </button>
-                <form class="d-inline" action="/admin/usuario/eliminar/{{user.ID}}" method="post">
+                <form id="delete-user-{{ user[0] }}" class="d-inline" action="/admin/usuario/eliminar/{{user[0]}}"
+                    method="post">
                     <button type="submit" class="btn btn-danger" onclick="
                             event.preventDefault();
-                            confirm('Seguro que desea eliminar el usuario {{ user.name }}');
-                            event.target.form.submit();
-                    ">
+                            if(confirm('Seguro que desea eliminar el usuario {{ user[1] }}')){
+                                document.getElementById('delete-user-{{ user[0] }}').submit();
+                            }; ">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </form>
@@ -53,43 +55,81 @@
         </tr>
 
         <!-- Modal -->
-        <div class="modal fade" id="editUser-{{user.ID}}" tabindex="-1" aria-labelledby="editUser-{{user.ID}}Label"
+        <div class="modal fade" id="editUser-{{user[0]}}" tabindex="-1" aria-labelledby="editUser-{{user[0]}}Label"
             aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar el usuario "{{ user.name }}"</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">
+                            Editar el usuario "{{ user[1] +' '+ user[2]}}"
+                        </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="edit-form-{{user.ID}}" action="/admin/usuario/editar/{{ user.ID }}" method="post">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Nombre</label>
-                                <input type="text" name="nombre" class="form-control" placeholder=""
-                                    aria-describedby="helpId" value="{{ user.name }}">
-                                <small id="helpId" class="text-muted">Agrege el nuevo nombre</small>
+                        <form id="edit-form-{{user[0]}}" action="/admin/usuario/editar/{{ user[0] }}" method="post"
+                            class="row">
+                            <input type="hidden" name="id" value="{{ user[0] }}">
+                            <div class="mb-3 row">
+                                <div class="col-4">
+                                    <label for="" class="form-label">Nombre *</label>
+                                    <input type="text" name="nombre" class="form-control" placeholder="Nombre" required
+                                        value="{{ user[1] }}">
+                                    <small class="text-muted">Agrege el nuevo nombre</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Apellido *</label>
+                                    <input type="text" name="apellido" class="form-control" value="{{ user[2] }}"
+                                        required placeholder="Apellido">
+                                    <small class="text-muted">Agrega el nuevo apellido</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Telefono *</label>
+                                    <input type="text" name="telefono" class="form-control" value="{{ user[9] }}">
+                                    <small class="text-muted">Nuevo telefono</small>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Correo</label>
-                                <input type="email" class="form-control" value="{{ user.email }}" readonly
-                                    aria-describedby="helpId" value="">
-                                <small id="helpId" class="text-muted">El correo no se puede editar</small>
+                            <div class="mb-3 row">
+                                <div class="col-4">
+                                    <label for="" class="form-label">Contraseña</label>
+                                    <input type="password" name="clave" class="form-control"
+                                        placeholder="Nueva contraseña">
+                                    <small class="text-muted">Cambiar de contraseña</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Nuevo rol *</label>
+                                    <select class="form-control" name="rol">
+                                        <option value="{{ user[12] }}">{{ roles[user[12] - 1][1] }}</option>
+                                        {% for rol in roles %}
+                                        <option value="{{ rol[0] }}">{{ rol[1] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <small class="text-muted">Seleccione un nuevo rol</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Fecha de naciemto *</label>
+                                    <input class="form-control" type="date" name="nacimiento" value="{{ user[5] }}">
+                                    <small class="text-muted">Seleccione la fecha de nacimiento</small>
+                                </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">Contraseña</label>
-                                <input type="password" name="clave" class="form-control" placeholder=""
-                                    aria-describedby="helpId">
-                                <small id="helpId" class="text-muted">Cambiar de contraseña</small>
-                            </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Nuevo rol</label>
-                                <select class="form-control" name="rol">
-                                    <option>{{ user.role }}</option>
-                                    <option value="admin">Super Administrador</option>
-                                    <option value="user">Administrador</option>
-                                    <option value="customer">Cliente</option>
-                                </select>
+                            <div class="mb-3 row">
+                                <div class="col-4">
+                                    <label for="" class="form-label">Departamento *</label>
+                                    <input type="text" name="departamento" class="form-control"
+                                        placeholder="Nuevo Departamento" value="{{ user[6] }}">
+                                    <small class="text-muted">Cambiar el departamento</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Cuidad *</label>
+                                    <input type="text" name="ciudad" class="form-control" placeholder="Nueva ciudad"
+                                        value="{{ user[7] }}">
+                                    <small class="text-muted">Cambiar la ciudad</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Direccion *</label>
+                                    <input placeholder="Cr12 # 12 - 12" class="form-control" type="text"
+                                        name="direccion" value="{{ user[8] }}">
+                                    <small class="text-muted">Nueva direccion</small>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -97,7 +137,7 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" onclick="
                                 event.preventDefault();
-                                document.getElementById('edit-form-{{user.ID}}').submit();
+                                document.getElementById('edit-form-{{user[0]}}').submit();
                             ">
                             Guardar
                         </button>
@@ -105,9 +145,6 @@
                 </div>
             </div>
         </div>
-
-
-
         {% endfor %}
     </tbody>
 </table>
@@ -115,7 +152,7 @@
 
 <!-- Modal para crear-->
 <div class="modal fade" id="createUser" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Crear Usuario</h5>
@@ -123,17 +160,181 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    Add rows here
+                    <form action="/admin/usuario/save/" method="post" class="row">
+                        <div class="mb-3 row">
+                            {{ form.csrf_token }}
+                            <div class="col-4">
+                                {{ form.nombre.label }}
+                                {{ form.nombre(class_="form-control", placeholder="Nombres Completos") }}
+                                {% if form.nombre.errors %}
+                                <ul class="nav">
+                                    {% for error in form.nombre.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.apellido.label }}
+                                {{ form.apellido(
+                                class_="form-control", placeholder="Apellidos") }}
+                                {% if form.apellido.errors %}
+                                <ul class="nav">
+                                    {% for error in form.apellido.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.correo.label }}
+                                {{ form.correo(
+                                class_="form-control", placeholder="correo@correo.com") }}
+                                {% if form.correo.errors %}
+                                <ul class="nav">
+                                    {% for error in form.correo.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-4">
+                                {{ form.confirmar_correo.label }}
+                                {{ form.confirmar_correo(
+                                class_="form-control",
+                                placeholder="Confirmar correo"
+                                )}}
+                                {% if form.confirmar_correo.errors %}
+                                <ul class="nav">
+                                    {% for error in form.confirmar_correo.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.clave.label }}
+                                {{ form.clave(
+                                class_="form-control",
+                                placeholder="Contraseña"
+                                )}}
+                                {% if form.clave.errors %}
+                                <ul class="nav">
+                                    {% for error in form.clave.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.confirmar_clave.label }}
+                                {{ form.confirmar_clave(
+                                class_="form-control",
+                                placeholder="Confirmar contraseña"
+                                )}}
+                                {% if form.confirmar_clave.errors %}
+                                <ul class="nav">
+                                    {% for error in form.confirmar_clave.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-4">
+                                {{ form.nacimiento.label }}
+                                {{ form.nacimiento(
+                                class_="form-control",
+                                placeholder="MM/DD/YYYY"
+                                )}}
+                                {% if form.nacimiento.errors %}
+                                <ul class="nav">
+                                    {% for error in form.nacimiento.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.departamento.label }}
+                                {{ form.departamento(
+                                class_="form-control",
+                                placeholder="Departamento"
+                                )}}
+                                {% if form.departamento.errors %}
+                                <ul class="nav">
+                                    {% for error in form.departamento.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.ciudad.label }}
+                                {{ form.ciudad(
+                                class_="form-control",
+                                placeholder="Ciudad de residencia"
+                                )}}
+                                {% if form.ciudad.errors %}
+                                <ul class="nav">
+                                    {% for error in form.ciudad.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-4">
+                                {{ form.direccion.label }}
+                                {{ form.direccion(
+                                class_="form-control",
+                                placeholder="Dirección"
+                                )}}
+                                {% if form.direccion.errors %}
+                                <ul class="nav">
+                                    {% for error in form.direccion.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.telefono.label }}
+                                {{ form.telefono(
+                                class_="form-control",
+                                placeholder="Telefono / Celular"
+                                )}}
+                                {% if form.telefono.errors %}
+                                <ul class="nav">
+                                    {% for error in form.telefono.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                <label for="">Nuevo rol</label>
+                                <select class="form-control" name="rol" required>
+                                    {% for rol in roles %}
+                                    <option value="{{ rol[0] }}">{{ rol[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            {{ form.boton( class_="btn btn-primary" )}}
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
 
 

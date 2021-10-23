@@ -8,6 +8,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endfor %}
+<h1 class="h2 my-3">Peliculas</h1>
 
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createPelicula">
@@ -20,7 +21,7 @@
             <th>ID</th>
             <th>Nombre</th>
             <th width="200">Actores</th>
-            <th>Director</th>
+            <th width="200">Director</th>
             <th>Imagen</th>
             <th>Acción</th>
         </tr>
@@ -28,27 +29,31 @@
     <tbody>
         {% for film in films %}
         <tr>
-            <td scope="row">{{ film.ID }}</td>
-            <td>{{ film.name }}</td>
-            <td>{{ film.actors }}</td>
-            <td>{{ film.director }}</td>
-            <td>{{ film.image }}</td>
+            <td scope="row">{{ film[0] }}</td>
+            <td>{{ film[1] }}</td>
+            <td>{{ film[2] }}</td>
+            <td>{{ film[3] }}</td>
+            <td>
+                <img width="100" src="{{ url_for('static', filename=film[6].replace('static', '')) }}"
+                    alt="{{ film[1] }}">
+            </td>
             <td>
 
-                <a class="btn btn-primary" href="/admin/usuario/{{film.ID}}" role="button">
+                <a class="btn btn-primary" href="/admin/pelicula/{{film[0]}}" role="button">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
                 <!-- Button trigger modal -->
                 <button type="button" class="btn btn-warning" data-bs-toggle="modal"
-                    data-bs-target="#editfilm-{{film.ID}}">
+                    data-bs-target="#editfilm-{{film[0]}}">
                     <i class="fa fa-edit" aria-hidden="true"></i>
                 </button>
-                <form class="d-inline" action="/admin/usuario/eliminar/{{film.ID}}" method="post">
+                <form id="delete-{{ film[0] }}" class="d-inline" action="/admin/pelicula/eliminar/{{film[0]}}"
+                    method="post">
                     <button type="submit" class="btn btn-danger" onclick="
                             event.preventDefault();
-                            confirm('Seguro que desea eliminar el usuario {{ film.name }}');
-                            event.target.form.submit();
-                    ">
+                            if(confirm('Seguro que desea eliminar la pelicula {{ film[1] }}')){
+                                document.getElementById('delete-{{ film[0] }}').submit(); 
+                            }; ">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </form>
@@ -57,43 +62,77 @@
         </tr>
 
         <!-- Modal -->
-        <div class="modal fade" id="editfilm-{{film.ID}}" tabindex="-1" aria-labelledby="editfilm-{{film.ID}}Label"
+        <div class="modal fade" id="editfilm-{{film[0]}}" tabindex="-1" aria-labelledby="editfilm-{{film[0]}}Label"
             aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Editar el usuario "{{ film.name }}"</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Editar la pelicula "{{ film[1] }}"</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="edit-form-{{film.ID}}" action="/admin/usuario/editar/{{ film.ID }}" method="post">
-                            <div class="mb-3">
-                                <label for="" class="form-label">Nombre</label>
-                                <input type="text" name="nombre" class="form-control" placeholder=""
-                                    aria-describedby="helpId" value="{{ film.name }}">
-                                <small id="helpId" class="text-muted">Agrege el nuevo nombre</small>
+                        <form id="edit-form-{{film[0]}}" action="/admin/pelicula/editar/{{ film[0] }}" method="post"
+                            class="row" enctype="multipart/form-data">
+                            <input type="hidden" name="id" value="{{ film[0] }}">
+                            <div class="mb-3 row">
+                                <div class="col-4">
+                                    <label for="" class="form-label">Nombre *</label>
+                                    <input type="text" name="nombre" class="form-control" placeholder="Nombre" required
+                                        value="{{ film[1] }}">
+                                    <small class="text-muted">Agrege el nuevo nombre</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Actores *</label>
+                                    <input type="text" name="actores" class="form-control" value="{{ film[2] }}"
+                                        required placeholder="Actores">
+                                    <small class="text-muted">Agrega los actores</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Director *</label>
+                                    <input type="text" name="director" class="form-control" value="{{ film[3] }}">
+                                    <small class="text-muted">Nuevo director</small>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Correo</label>
-                                <input type="email" class="form-control" value="{{ film.email }}" readonly
-                                    aria-describedby="helpId" value="">
-                                <small id="helpId" class="text-muted">El correo no se puede editar</small>
+                            <div class="mb-3 row">
+                                <div class="col-8">
+                                    <label for="" class="form-label">Imagen</label>
+                                    <input type="file" accept=".png, .jpg, .jpeg" name="imagen" class="form-control"
+                                        placeholder="Nueva imagen">
+                                    <small class="text-muted">Cambiar dla imagen</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Trailer *</label>
+                                    <input class="form-control" type="text" name="trailer" value="{{ film[8] }}">
+                                    <small class="text-muted">ID del trailer en youtube</small>
+                                </div>
                             </div>
-
-                            <div class="mb-3">
-                                <label for="" class="form-label">Contraseña</label>
-                                <input type="password" name="clave" class="form-control" placeholder=""
-                                    aria-describedby="helpId">
-                                <small id="helpId" class="text-muted">Cambiar de contraseña</small>
+                            <div class="mb-3 row">
+                                <div class="col-8">
+                                    <label for="" class="form-label">Banner</label>
+                                    <input type="file" accept=".png, .jpg, .jpeg" name="banner" class="form-control"
+                                        placeholder="Nuevo banner">
+                                    <small class="text-muted">Cambiar el banner</small>
+                                </div>
+                                <div class="col-4">
+                                    <label for="" class="form-label">Categoria *</label>
+                                    <select class="form-select" name="categoria" class="form-control"
+                                        placeholder="Nueva categoria">
+                                        <option selected value="{{ categories[film[4]-1][0] }}">{{
+                                            categories[film[4]-1][1] }}</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category[0] }}">{{ category[1] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <small class="text-muted">Cambiar la categoria</small>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <label for="" class="form-label">Nuevo rol</label>
-                                <select class="form-control" name="rol">
-                                    <option>{{ film.role }}</option>
-                                    <option value="admin">Super Administrador</option>
-                                    <option value="film">Administrador</option>
-                                    <option value="customer">Cliente</option>
-                                </select>
+                            <div class="mb-3 row">
+                                <div class="col-12">
+                                    <label for="" class="form-label">Descripcion *</label>
+                                    <textarea name="descripcion" rows="8" class="form-control"
+                                        placeholder="Descripcion">{{ film[5] }}</textarea>
+                                    <small class="text-muted">Nueva descripcion</small>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -101,39 +140,145 @@
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="button" class="btn btn-primary" onclick="
                                 event.preventDefault();
-                                document.getElementById('edit-form-{{film.ID}}').submit();
-                            ">
+                                document.getElementById('edit-form-{{film[0]}}').submit(); ">
                             Guardar
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
-
-
-
         {% endfor %}
     </tbody>
 </table>
 
-
 <!-- Modal para crear-->
 <div class="modal fade" id="createPelicula" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Crear Usuario</h5>
+                <h5 class="modal-title">Crear Pelicula</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    Add rows here
+                    <form action="/admin/pelicula/save/" method="post" enctype="multipart/form-data">
+                        <div class="mb-3 row">
+                            {{ form.csrf_token }}
+                            <div class="col-4">
+                                {{ form.nombre.label }}
+                                {{ form.nombre(class_="form-control", placeholder="Nombre") }}
+                                {% if form.nombre.errors %}
+                                <ul class="nav">
+                                    {% for error in form.nombre.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.actores.label }}
+                                {{ form.actores(
+                                class_="form-control", placeholder="Actores") }}
+                                {% if form.actores.errors %}
+                                <ul class="nav">
+                                    {% for error in form.actores.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.director.label }}
+                                {{ form.director(
+                                class_="form-control", placeholder="Director") }}
+                                {% if form.director.errors %}
+                                <ul class="nav">
+                                    {% for error in form.director.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-8">
+                                {{ form.imagen.label }}
+                                {{ form.imagen(
+                                class_="form-control",
+                                placeholder="Imagen"
+                                )}}
+                                {% if form.imagen.errors %}
+                                <ul class="nav">
+                                    {% for error in form.imagen.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.trailer.label }}
+                                {{ form.trailer(
+                                class_="form-control",
+                                placeholder="ID en youtube"
+                                )}}
+                                {% if form.trailer.errors %}
+                                <ul class="nav">
+                                    {% for error in form.trailer.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-8">
+                                {{ form.banner.label }}
+                                {{ form.banner(
+                                class_="form-control",
+                                placeholder="Banner"
+                                )}}
+                                {% if form.banner.errors %}
+                                <ul class="nav">
+                                    {% for error in form.banner.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                <label for="">Categoria</label>
+                                <select class="form-select" name="categoria" required>
+                                    {% for category in categories %}
+                                    <option value="{{ category[0] }}">{{ category[1] }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-12">
+                                {{ form.descripcion.label }}
+                                {{ form.descripcion(
+                                class_="form-control",
+                                placeholder="Descripcion",
+                                rows="8"
+                                )}}
+                                {% if form.descripcion.errors %}
+                                <ul class="nav">
+                                    {% for error in form.descripcion.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            {{ form.boton( class_="btn btn-primary" )}}
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
