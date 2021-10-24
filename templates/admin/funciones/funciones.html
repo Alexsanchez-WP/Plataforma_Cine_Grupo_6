@@ -1,0 +1,191 @@
+{% extends 'views/admin.html' %}
+
+{% block content %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<h1 class="h2 my-3">Funciones</h1>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createShow">
+    Crear nueva función
+</button>
+
+<table class="mt-5 table table-striped table-inverse table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>ID</th>
+            <th>Sala</th>
+            <th width="200">Pelicula</th>
+            <th width="200">Estado</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for show in shows %}
+        <tr>
+            <td scope="row">{{ show[0] }}</td>
+
+            {% for room in rooms
+            if room[0] == show[4] %}
+            <td>{{ room[1] }}</td>
+            {% endfor %}
+
+            {% for film in films
+            if film[0] == show[1] %}
+            <td>{{ film[1] }}</td>
+            {% endfor %}
+
+            <td>{{ 'Cartelera' if show[5] else 'Proximo Estreno' }}</td>
+            <td>
+
+                <a class="btn btn-primary" href="/admin/funcion/{{ show[0] }}" role="button">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal"
+                    data-bs-target="#edit-show-{{ show[0]  }}">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+                <form id="delete-{{ show[0]  }}" class="d-inline" action="/admin/funcion/eliminar/{{ show[0]  }}"
+                    method="post">
+                    <button type="submit" class="btn btn-danger" onclick="
+                                    event.preventDefault();
+                                    if(confirm('Seguro que desea eliminar esta funcion')){
+                                        document.getElementById('delete-{{ show[0]  }}').submit(); 
+                                    }; ">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </form>
+
+            </td>
+        </tr>
+        {% endfor %}
+
+
+    </tbody>
+</table>
+
+<!-- Modal para crear-->
+
+<div class="modal fade" id="createShow" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Función</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <form action="/admin/funcion/save/" method="post">
+                        <div class="mb-3 row">
+                            {{ form.csrf_token }}
+                            <div class="col-4">
+                                {{ form.hora.label }}
+                                {{ form.hora(class_="form-control") }}
+                                {% if form.hora.errors %}
+                                <ul class="nav">
+                                    {% for error in form.hora.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.dia.label }}
+                                {{ form.dia(
+                                class_="form-control") }}
+                                {% if form.dia.errors %}
+                                <ul class="nav">
+                                    {% for error in form.dia.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.estado.label }}
+                                {{ form.estado(
+                                class_="form-control") }}
+                                {% if form.estado.errors %}
+                                <ul class="nav">
+                                    {% for error in form.estado.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-4">
+                                {{ form.duracion.label }}
+                                {{ form.duracion(
+                                class_="form-control",
+                                placeholder="Duración"
+                                )}}
+                                {% if form.duracion.errors %}
+                                <ul class="nav">
+                                    {% for error in form.duracion.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.edad.label }}
+                                {{ form.edad(
+                                class_="form-control",
+                                placeholder="Edad"
+                                )}}
+                                {% if form.edad.errors %}
+                                <ul class="nav">
+                                    {% for error in form.edad.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {{ form.sala.label }}
+                                {{ form.sala(
+                                class_="form-control",
+                                placeholder="sala"
+                                )}}
+                                {% if form.sala.errors %}
+                                <ul class="nav">
+                                    {% for error in form.sala.errors %}
+                                    <li class="nav-item text-danger">{{ error }} *</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="">La pelicula *</label>
+                                    <select class="form-control" name="pelicula" required>
+                                        {% for film in films %}
+                                        <option value="{{ film[0] }}">{{ film[1] }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-center">Para asignar los dias y horarios, ver detalles de la funcion</p>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            {{ form.boton( class_="btn btn-primary" )}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

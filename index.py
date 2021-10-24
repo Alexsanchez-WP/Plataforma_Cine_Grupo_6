@@ -1,15 +1,17 @@
 # Incluimos las referencias
-import os
 from flask import Flask, render_template, request, session, flash
 from markupsafe import escape
+from datetime import datetime
 from werkzeug.utils import redirect, secure_filename
-from formularios import Login, Registro, ActualizacionUsuarios, Pelicula, ActualizacionPelicula
+from formularios import Login, Registro, ActualizacionUsuarios, Pelicula, ActualizacionPelicula, Funcion
 # from db.bd_class import Users, Films, ejecutar_query_accion, ejecutar_query_seleccion
 from werkzeug.security import generate_password_hash, check_password_hash
 from db.Auth import Auth
 from db.Users import Users
 from db.Roles import Roles
 from db.Films import Films
+from db.Shows import Shows
+from db.Rooms import Rooms
 from db.Categories import Categories
 
 files_path = "static/uploads/"
@@ -29,6 +31,7 @@ def error404(e):
 @app.route('/')
 @app.route('/home/')
 @app.route('/index/')
+# FIXME
 def index():
     return render_template('index.html')
 
@@ -88,27 +91,47 @@ def tiquets():
     return render_template('tiquetes.html')
 
 
-@app.route('/funciones/', methods=['GET', 'POST'])
+@app.route('/funciones/')
 def funciones():
     return render_template('funciones.html')
 
 
-@app.route('/buscar-pelicula/', methods=['GET', 'POST'])
-def buscarPelicula():
-    return render_template('buscar_pelicula.html')
+@app.route('/buscar-pelicula/<string:id>/')
+# FIXME
+def buscarPelicula(id=None):
+    if not id:
+        return redirect('/')
+    film = Shows().view(id)
+    time = datetime.fromisoformat(
+        film[3] + ' ' + film[2]).strftime("%d %B, %Y - %I:%M %p")
+    categories = Categories().view()
+    shows = []
+    if film[6]:
+        list_shows = film[6].split(",")
+        for show in list_shows:
+            shows.append(datetime.fromisoformat(
+                show).strftime("%d %B, %Y - %I:%M %p"))
+    return render_template('buscar_pelicula.html', film=film, categories=categories, time=time, shows=shows)
 
 
-@app.route('/estrenos/', methods=['GET', 'POST'])
+@app.route('/estrenos/')
+# FIXME
 def proximosEstrenos():
-    return render_template('estrenos.html')
+    shows = Shows().view(None, '0')
+    categories = Categories().view()
+    return render_template('estrenos.html', shows=shows, categories=categories)
 
 
-@app.route('/cartelera/', methods=['GET', 'POST'])
+@app.route('/cartelera/')
+# FIXME
 def cartelera():
-    return render_template('cartelera.html')
+    shows = Shows().view(None, '1')
+    categories = Categories().view()
+    return render_template('cartelera.html', shows=shows, categories=categories)
 
 
 @app.route('/logout/')
+# FIXME
 def logout():
     if session.get('user_data'):
         session.pop('user_data', None)
@@ -325,6 +348,135 @@ def adminPeliculaEliminar(id=None):
 
 @app.route('/admin/pelicula/editar/<string:id>', methods=['POST'])
 def adminPeliculaEditar(id=None):
+    if session.get('user_data'):
+        if session.get('user_data')[12] != 1:
+            form = Pelicula()
+            films = Films().view()
+            categories = Categories().view()
+
+            if id and request.form["nombre"].strip() and request.form["actores"].strip() and request.form["director"].strip() and request.form["categoria"].strip() and request.form["descripcion"].strip() and request.form["trailer"].strip():
+
+                img_rute = None
+                bnn_rute = None
+
+                if request.files["imagen"].filename:
+                    img = request.files["imagen"]
+                    img_name = secure_filename(img.filename)
+                    img_rute = files_path+img_name.replace(" ", "")
+                    img.save(img_rute)
+
+                if request.files["banner"].filename:
+                    bnn = request.files["banner"]
+                    bnn_name = secure_filename(bnn.filename)
+                    bnn_rute = files_path+bnn_name.replace(" ", "")
+                    bnn.save(bnn_rute)
+
+                params = {
+                    'id': escape(id),
+                    'nombre': escape(request.form["nombre"].strip()),
+                    'actores': escape(request.form["actores"].strip()),
+                    'director': escape(request.form["director"].strip()),
+                    'categoria': escape(request.form["categoria"].strip()),
+                    'descripcion': escape(request.form["descripcion"].strip()),
+                    'imagen': img_rute,
+                    'banner': bnn_rute,
+                    'trailer': escape(request.form["trailer"].strip()),
+                }
+                data = Films().edit(params)
+                if data:
+                    flash(
+                        f"La pelicula fue editada de forma correcta")
+                    return redirect('/admin/peliculas/')
+            flash(
+                f"Todos los campos marcados con '*' son obligatorios, por favor valide")
+            return render_template('admin/peliculas/peliculas.html', films=films, form=form, categories=categories)
+    flash("No tiene permiso para ingresar a esta área")
+    return redirect('/admin/')
+
+# Administracion de funciones
+
+
+@app.route('/admin/funciones/')
+# FIXME
+def adminFunciones():
+    if session.get('user_data'):
+        if session.get('user_data')[12] != 1:
+            form = Funcion()
+            shows = Shows().view()
+            films = Films().list()
+            rooms = Rooms().view()
+            return render_template('admin/funciones/funciones.html', films=films, form=form,  shows=shows, rooms=rooms)
+    flash("No tiene permiso para ingresar a esta área")
+    return redirect('/admin/')
+
+
+@app.route('/admin/funcion/<string:id>')
+def adminFuncionVer(id):
+    if session.get('user_data') and session.get('user_data')[12] != 1:
+        if id != None:
+            film = Films().view(escape(id))
+            categories = Categories().view()
+            if film:
+                return render_template('/admin/funciones/funcion.html', film=film, categories=categories)
+            else:
+                flash("El usuario consultado no existe, por favor intente de nuevo")
+                return redirect('/admin/funciones/')
+    flash("No tiene permiso para ingresar a esta área")
+    return redirect('/admin/')
+
+
+@app.route('/admin/funcion/save/', methods=['POST'])
+def adminFuncioneCrear():
+    if session.get('user_data'):
+        if session.get('user_data')[12] != 1:
+
+            form = Funcion()
+            shows = Shows().view()
+            films = Films().list()
+            rooms = Rooms().view()
+            if form.validate_on_submit() and request.form["pelicula"]:
+
+                params = {
+                    'hora': escape(request.form["hora"].strip()),
+                    'dia': escape(request.form["dia"].strip()),
+                    'estado': escape(request.form["estado"].strip()),
+                    'sala': escape(request.form["sala"].strip()),
+                    'pelicula': escape(request.form["pelicula"].strip()),
+                    'duracion': escape(request.form["duracion"].strip()),
+                    'edad': escape(request.form["edad"].strip()),
+                }
+                data = Shows().create(params)
+                if data:
+                    flash(
+                        f"La funcion fue creada de forma correcta")
+                    return redirect('/admin/funciones/')
+            flash(
+                f"Todos los campos marcados con '*' son obligatorios, por favor valide")
+            return render_template('admin/funciones/funciones.html', films=films, form=form,  shows=shows, rooms=rooms)
+    flash("No tiene permiso para ingresar a esta área")
+    return redirect('/admin/')
+
+
+@app.route('/admin/funcion/eliminar/<int:id>', methods=['POST'])
+# FIXME
+def adminFuncionEliminar(id=None):
+    if session.get('user_data') and session.get('user_data')[12] != 1:
+        if id != None:
+            show = Shows().delete(escape(id))
+            if show:
+                return redirect('/admin/funciones/')
+            else:
+                flash("La funcion no existe, por favor intente de nuevo")
+                return redirect('/admin/funciones/')
+        flash("No tiene permiso para ingresar a esta área")
+        return redirect('/admin/')
+    else:
+        flash("El superadministrador no puede ser eliminado")
+        return redirect('/admin/funciones/')
+
+
+@app.route('/admin/pelicula/editar/<string:id>', methods=['POST'])
+def adminFuncionEditar(id=None):
     if session.get('user_data'):
         if session.get('user_data')[12] != 1:
             form = Pelicula()

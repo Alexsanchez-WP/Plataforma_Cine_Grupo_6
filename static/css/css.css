@@ -3,12 +3,17 @@
     --secondary: #39ACFF;
     --background: #F1F1E6;
     --hover: #D8A31A;
+    --fontFamily: 'Open Sans', sans-serif;
 }
 
 body {
     margin: 0;
-    font-family: 'Open Sans', sans-serif;
+    font-family: var(--fontFamily);
     background-color: var(--background);
+}
+
+h1, h2, h3, h4, h5, p, span, strong, a, button {
+    font-family: var(--fontFamily)!important;
 }
 
 /*-------------------- Barra de navegación -------------------*/
@@ -218,4 +223,13 @@ img {
 
 .color-h {
     color: var(--hover);
+}
+
+.banner-backgroud {
+    background-color: rgba(1, 1, 1, 0.4);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
 }

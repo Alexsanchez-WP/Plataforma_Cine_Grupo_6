@@ -1,8 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import TextField, PasswordField, SubmitField, TextAreaField
-from wtforms.fields.html5 import EmailField, DateField
+from wtforms import TextField, PasswordField, SubmitField, TextAreaField, SelectField, IntegerField
+from wtforms.fields.html5 import EmailField, DateField, TimeField
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms.validators import InputRequired, Length, EqualTo
+from db.Rooms import Rooms
+from db.Films import Films
 
 
 class Login(FlaskForm):
@@ -205,6 +207,39 @@ class ActualizacionPelicula(FlaskForm):
     trailer = TextField('Trailer *', validators=[
         Length(min=5, max=20, message='Longitud fuera de rango [5-20]'),
         InputRequired(message='El trailer es requerido')
+    ])
+
+    boton = SubmitField('Registrar')
+
+
+class Funcion(FlaskForm):
+
+    hora = TimeField('Hora de estreno *', [
+        InputRequired(message='La hora de estreno es requerida')
+    ])
+
+    dia = DateField('Dia de estreno *', [
+        InputRequired(message='El dia de estreno es requerida')
+    ])
+
+    estado = SelectField('Estado de la funcion *', validators=[
+        InputRequired(message='El estado es requerido')
+    ], choices=[('0', 'Proximo Estreno'), ('1', 'Cartelera')])
+
+    sala = SelectField('Sala *', validators=[
+        InputRequired(message='la sala es requerida')
+    ], choices=Rooms().list())
+
+    # pelicula = SelectField('La pelicula  *', validators=[
+    #     InputRequired(message='La pelicula es requerida')
+    # ], choices=Films().list())
+
+    duracion = IntegerField('Duracion en minutos *', validators=[
+        InputRequired(message='La duración es requerida')
+    ])
+
+    edad = IntegerField('Edad apta para ver la función *', validators=[
+        InputRequired(message='La edad es requerida')
     ])
 
     boton = SubmitField('Registrar')

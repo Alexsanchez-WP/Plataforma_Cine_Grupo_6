@@ -1,33 +1,31 @@
+import re
 from db.IModel import IModel
 from markupsafe import escape
 from db.DBConexion import DBConexion
 
 
-class Films(IModel, DBConexion):
+class Shows(IModel, DBConexion):
     """ Modelo para los metodos de las consutlas """
 
     def __init__(self) -> None:
         conn = DBConexion()
         self.conn = conn.getConn()
 
-    def view(self, id=None) -> list:
+    def view(self, id=None, status=None) -> list:
         """ Listar o ver un registro por ID"""
         try:
-            query = f"SELECT * FROM pelicula"
+            query = f"SELECT * FROM funcion as fs INNER JOIN pelicula as pl ON fs.fkPelicula = pl.idPelicula"
             if(id):
-                query += f" WHERE idPelicula = {escape(id)};"
+                query += f" AND fs.idFuncion = {escape(id)}"
+            if(status):
+                query += f" AND fs.estado = {escape(status)}"
+
+            query += " INNER JOIN sala as sl ON fs.fkSala = sl.idSala; "
+
             data = self.conn.execute(query).fetchall()
+
             if (id and data):
                 return data[0]
-            return data
-        except Exception as m:
-            return []
-
-    def list(self) -> list:
-        """ Listar retorna id y nombre"""
-        try:
-            query = f"SELECT idPelicula as id, nombre FROM pelicula"
-            data = self.conn.execute(query).fetchall()
             return data
         except Exception as m:
             return []
@@ -35,9 +33,9 @@ class Films(IModel, DBConexion):
     def create(self, params) -> int:
         """Crear un registro"""
         try:
-            query = f"INSERT INTO pelicula ( nombre, actores, director, fkCategoria, descripcion, imagen, banner, trailer) VALUES (?,?,?,?,?,?,?,?)"
-            datos = (params['nombre'], params['actores'], params['director'], params['categoria'], params['descripcion'],
-                     params['imagen'], params['banner'], params['trailer'])
+            query = f"INSERT INTO funcion ( fkPelicula, hora, dia, fkSala, estado, duracion, edad) VALUES (?,?,?,?,?,?,?)"
+            datos = (params['pelicula'], params['hora'], params['dia'], params['sala'],
+                     params['estado'], params['duracion'], params['edad'])
             data = self.conn.cursor()
             data = self.conn.execute(query, datos).rowcount
             if data != 0:
@@ -81,7 +79,7 @@ class Films(IModel, DBConexion):
         """Eliminar un registro"""
         try:
             if id:
-                query = f"DELETE FROM pelicula WHERE idPelicula = ?;"
+                query = f"DELETE FROM funcion WHERE idFuncion = ?;"
                 datos = (id)
                 user = self.conn.cursor()
                 user = self.conn.execute(query, datos).rowcount

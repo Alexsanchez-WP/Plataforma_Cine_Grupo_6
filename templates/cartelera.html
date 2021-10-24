@@ -1,271 +1,286 @@
 {% extends '/views/base.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/cartelera.css')}}" media="screen">
+{% endblock %}
+
 {% block cartelera %}
 
-
-<html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <met name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
-    
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/cartelera.css')}}" media="screen">
-  
-    <body data-aos-easing="ease" data-aos-duration="400" data-aos-delay="0">  
-    
-  
-      <div class="container container--full-width u-pt--mobile u-pb-7-mobile u-pt-0-desktop">
-        <div class="columns is-hidden-touch">
-          <div class="column">
-            <h2 class="title is-10 is-uppercase">En cartelera</h2>
-          </div>
-      </div>
-      
-      <div class="columns is-multiline columns--slim">
-        
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <span class="movie-item__badge movie-item__badge--yellow-2">        Estreno            </span>
-            <figure class="movie-item__image"> <img src="/static/img/dune.jpg">                   </figure>
-          </div>
-          
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Duna                                              </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Dune                            </span> 
-            <span class="movie-item__meta">                           Estreno: 21-Oct-2021                              </span>
-            <span class="movie-item__meta">                           Género: Acción, Aventura, Ciencia Ficción, Drama  </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 12 años                </div> </span>
-              <span class="tag">                                      156 Min                                            </span></div>
-          </div>
-        </a></div>
-
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <span class="movie-item__badge movie-item__badge--yellow-2">              Estreno   </span>
-            <figure class="movie-item__image"><img src="/static/img/rondaerror.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Ron da Error                                     </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Ron’s Gone Wrong               </span> 
-            <span class="movie-item__meta">                           Estreno: 21-Oct-2021                             </span> 
-            <span class="movie-item__meta">                           Género: Animación                                </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 7 años                </div></span> 
-              <span class="tag">                                      106 Min                                           </span></div>
-          </div>
-        </a></div>
-
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <span class="movie-item__badge movie-item__badge--yellow-2">              Estreno   </span>
-            <figure class="movie-item__image"><img src="/static/img/ElHombre.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            El Hombre que Vendió su Piel                     </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: RThe Man who Sold his Skin     </span> 
-            <span class="movie-item__meta">                           Estreno: 21-Oct-2021                             </span> 
-            <span class="movie-item__meta">                           Género: Drama                                </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 12 años                </div></span> 
-              <span class="tag">                                      104 Min                                           </span></div>
-          </div>
-        </a></div>
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/venon.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                           Venom: Carnage Liberado                           </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Venom: Let There Be Carnage    </span> 
-            <span class="movie-item__meta">                           Estreno: 07-Oct-2021                             </span> 
-            <span class="movie-item__meta">                           Género: Acción, Marvel, Suspenso                 </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 12 años                </div></span> 
-              <span class="tag">                                      90  Min                                           </span></div>
-          </div>
-        </a></div>
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/ultimo.png">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                                     El Último Duelo                                   </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">             Título en inglés: The Last Duel                  </span> 
-            <span class="movie-item__meta">                                    Estreno: 14-Oct-2021                             </span> 
-            <span class="movie-item__meta">                                    Género: Drama                                    </span>
-            <div class="movie-item__tags tags">
-              <span class="tag is-danger"><div class="ezselection-field">      Exclusiva para Mayores de 15 años                </div></span> 
-              <span class="tag">                                               152 Min                                          </span></div>
-          </div>
-        </a></div>
-
-
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/chernobil.png">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Chernóbil: La Película                          </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Chernobyl                     </span> 
-            <span class="movie-item__meta">                           Estreno: 14-Oct-2021                            </span> 
-            <span class="movie-item__meta">                           Género: Drama, Suspenso                         </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 12 años               </div></span> 
-              <span class="tag">                                      136 Min                                           </span></div>
-          </div>
-        </a></div>
-
-
-
-        
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/007.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Sin Tiempo para Morir                           </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés:  No Time to Die               </span> 
-            <span class="movie-item__meta">                           Estreno: 30-Sept-2021                           </span> 
-            <span class="movie-item__meta">                           Género: Acción                                  </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 12 años               </div></span> 
-              <span class="tag">                                      163 Min                                           </span></div>
-          </div>
-        </a></div>
-
-
-
-        
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/renace.png">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Rock Dog: Renace Una Estrella                  </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Rock Dog 2                    </span> 
-            <span class="movie-item__meta">                           Estreno: 23-Sept-2021                           </span> 
-            <span class="movie-item__meta">                           Género:  Animación, Aventura, Comedia           </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Para todo Público                               </div></span> 
-              <span class="tag">                                      90  Min                                          </span></div>
-          </div>
-        </a></div>
-
-
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/conejo.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Peter Rabbit Conejo en Fuga                     </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Peter Rabbit 2: The Runaway   </span> 
-            <span class="movie-item__meta">                           Estreno: 09-Sept-2021                           </span> 
-            <span class="movie-item__meta">                           Género:  Animación, Aventura, Comedia           </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Para todo Público                               </div></span> 
-              <span class="tag">                                      93  Min                                          </span></div>
-          </div>
-        </a></div>
-
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/ainbo.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Ainbo, La Guerrera del Amazonas                </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés: Ainbo                        </span> 
-            <span class="movie-item__meta">                           Estreno: 12-Ago-2021                           </span> 
-            <span class="movie-item__meta">                           Género:  Animación, Aventura                   </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Para todo Público                               </div></span> 
-              <span class="tag">                                      84  Min                                         </span></div>
-          </div>
-        </a></div>
-
-   
-
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/NuevaEra.png">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                            Space Jam: Una Nueva Era                       </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">    Título en inglés:   Space Jam 2                </span> 
-            <span class="movie-item__meta">                           Estreno: 15-Jul-2021                           </span> 
-            <span class="movie-item__meta">                           Género:  Animación, Fantasia, Secuela          </span>
-            <div class="movie-item__tags tags">
-              <span class="tag"><div class="ezselection-field">       Recomendada para Mayores de 7 años              </div></span> 
-              <span class="tag">                                      120 Min                                         </span></div>
-          </div>
-        </a></div>
-
-        
-
-       
-         
-
-        <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
-          <a href="#" class="movie-item">
-          <div class="movie-item__image-wrapper">
-            <figure class="movie-item__image"><img src="/static/img/LaNoche.jpg">            </figure>  
-          </div>
-
-          <div class="movie-item__basics">
-            <h2 class="movie-item__title">                                 Halloween Kills: La Noche Aún No Termina      </h2> 
-            <span class="movie-item__meta movie-item__meta--bold">         Título en inglés: Halloween Kills             </span> 
-            <span class="movie-item__meta">                                Estreno: 21-Oct-2021                          </span> 
-            <span class="movie-item__meta">                                Género:  Terror                               </span>
-            <div class="movie-item__tags tags">
-              <span class="tag is-danger"><div class="ezselection-field">  Recomendada para Mayores de 15 años             </div></span> 
-              <span class="tag">                                           106 Min                                         </span></div>
-          </div>
-        </a></div>
-
-
-
-        
-          
+<section class="my-4">
+  <div class="container container--full-width u-pt--mobile u-pb-7-mobile u-pt-0-desktop">
+    <div class="columns is-hidden-touch">
+      <div class="column">
+        <h2 class="title is-10 is-uppercase">En cartelera</h2>
       </div>
     </div>
-    </section>
+
+    <div class="columns is-multiline columns--slim">
+
+
+      {% for show in shows %}
+
+      <div data-aos="fade-up" data-aos-delay="200" class="column is-3 aos-init aos-animate">
+        <a href="/buscar-pelicula/{{show[0]}}/" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image">
+              <img src="{{ url_for('static', filename=show[15].replace('static/',''))}}">
+            </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> {{ show[10] }} </h2>
+            <span class="movie-item__meta"> Se estreno el: {{ show[3] + ' ' + show[2] }} </span>
+            <span class="movie-item__meta"> Género: {{ categories[show[13]][1] }} </span>
+            <div class="movie-item__tags tags">
+              {% if show[8] %}
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de {{ show[8] }} años </div>
+              </span>
+              {% endif %}
+              <span class="tag"> {{ show[7] }} Minutos </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      {% endfor %}
+
+      <!-- <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <span class="movie-item__badge movie-item__badge--yellow-2"> Estreno </span>
+            <figure class="movie-item__image"><img src="/static/img/rondaerror.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Ron da Error </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Ron’s Gone Wrong </span>
+            <span class="movie-item__meta"> Estreno: 21-Oct-2021 </span>
+            <span class="movie-item__meta"> Género: Animación </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de 7 años </div>
+              </span>
+              <span class="tag"> 106 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <span class="movie-item__badge movie-item__badge--yellow-2"> Estreno </span>
+            <figure class="movie-item__image"><img src="/static/img/ElHombre.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> El Hombre que Vendió su Piel </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: RThe Man who Sold his Skin </span>
+            <span class="movie-item__meta"> Estreno: 21-Oct-2021 </span>
+            <span class="movie-item__meta"> Género: Drama </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de 12 años </div>
+              </span>
+              <span class="tag"> 104 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/venon.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Venom: Carnage Liberado </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Venom: Let There Be Carnage </span>
+            <span class="movie-item__meta"> Estreno: 07-Oct-2021 </span>
+            <span class="movie-item__meta"> Género: Acción, Marvel, Suspenso </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de 12 años </div>
+              </span>
+              <span class="tag"> 90 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/ultimo.png"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> El Último Duelo </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: The Last Duel </span>
+            <span class="movie-item__meta"> Estreno: 14-Oct-2021 </span>
+            <span class="movie-item__meta"> Género: Drama </span>
+            <div class="movie-item__tags tags">
+              <span class="tag is-danger">
+                <div class="ezselection-field"> Exclusiva para Mayores de 15 años </div>
+              </span>
+              <span class="tag"> 152 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/chernobil.png"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Chernóbil: La Película </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Chernobyl </span>
+            <span class="movie-item__meta"> Estreno: 14-Oct-2021 </span>
+            <span class="movie-item__meta"> Género: Drama, Suspenso </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de 12 años </div>
+              </span>
+              <span class="tag"> 136 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/007.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Sin Tiempo para Morir </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: No Time to Die </span>
+            <span class="movie-item__meta"> Estreno: 30-Sept-2021 </span>
+            <span class="movie-item__meta"> Género: Acción </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de 12 años </div>
+              </span>
+              <span class="tag"> 163 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/renace.png"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Rock Dog: Renace Una Estrella </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Rock Dog 2 </span>
+            <span class="movie-item__meta"> Estreno: 23-Sept-2021 </span>
+            <span class="movie-item__meta"> Género: Animación, Aventura, Comedia </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Para todo Público </div>
+              </span>
+              <span class="tag"> 90 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/conejo.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Peter Rabbit Conejo en Fuga </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Peter Rabbit 2: The Runaway </span>
+            <span class="movie-item__meta"> Estreno: 09-Sept-2021 </span>
+            <span class="movie-item__meta"> Género: Animación, Aventura, Comedia </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Para todo Público </div>
+              </span>
+              <span class="tag"> 93 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/ainbo.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Ainbo, La Guerrera del Amazonas </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Ainbo </span>
+            <span class="movie-item__meta"> Estreno: 12-Ago-2021 </span>
+            <span class="movie-item__meta"> Género: Animación, Aventura </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Para todo Público </div>
+              </span>
+              <span class="tag"> 84 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/NuevaEra.png"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Space Jam: Una Nueva Era </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Space Jam 2 </span>
+            <span class="movie-item__meta"> Estreno: 15-Jul-2021 </span>
+            <span class="movie-item__meta"> Género: Animación, Fantasia, Secuela </span>
+            <div class="movie-item__tags tags">
+              <span class="tag">
+                <div class="ezselection-field"> Recomendada para Mayores de 7 años </div>
+              </span>
+              <span class="tag"> 120 Min </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div data-aos="fade-up" data-aos-delay="100" class="column is-3 aos-init aos-animate">
+        <a href="#" class="movie-item">
+          <div class="movie-item__image-wrapper">
+            <figure class="movie-item__image"><img src="/static/img/LaNoche.jpg"> </figure>
+          </div>
+
+          <div class="movie-item__basics">
+            <h2 class="movie-item__title"> Halloween Kills: La Noche Aún No Termina </h2>
+            <span class="movie-item__meta movie-item__meta--bold"> Título en inglés: Halloween Kills </span>
+            <span class="movie-item__meta"> Estreno: 21-Oct-2021 </span>
+            <span class="movie-item__meta"> Género: Terror </span>
+            <div class="movie-item__tags tags">
+              <span class="tag is-danger">
+                <div class="ezselection-field"> Recomendada para Mayores de 15 años </div>
+              </span>
+              <span class="tag"> 106 Min </span>
+            </div>
+          </div>
+        </a>
+      </div> -->
+
+    </div>
+  </div>
+</section>
 
 
 
