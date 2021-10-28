@@ -1,4 +1,4 @@
-import re
+import pickle
 from db.IModel import IModel
 from markupsafe import escape
 from db.DBConexion import DBConexion
@@ -48,24 +48,25 @@ class Shows(IModel, DBConexion):
         """Editar los registros"""
         try:
             if params['id']:
-                query = f"UPDATE pelicula SET nombre = ? , actores = ?, director = ?, fkCategoria = ?, descripcion = ?, trailer = ?"
-                datos = (params['nombre'], params['actores'], params['director'], params['categoria'],
-                         params['descripcion'], params['trailer'])
+                query = f"UPDATE funcion SET hora = ? , dia = ?, estado = ?, duracion = ?, edad = ?, fkSala = ?, fkPelicula = ? WHERE idFuncion = ?"
+                datos = (params['hora'], params['dia'], params['estado'], params['duracion'],
+                         params['edad'], params['sala'], params['pelicula'], params['id'])
 
-                if params['imagen']:
-                    query += f", imagen = ?"
-                    datos_list = list(datos)
-                    datos_list.append(params['imagen'])
-                    datos = tuple(datos_list)
+                data = self.conn.cursor()
+                data = self.conn.execute(query, datos).rowcount
+                if data != 0:
+                    self.conn.commit()
+                return datos
+            return 0
+        except Exception as m:
+            return 0
 
-                if params['banner']:
-                    query += f", banner = ?"
-                    datos_list = list(datos)
-                    datos_list.append(params['banner'])
-                    datos = tuple(datos_list)
-
-                query += f" WHERE idPelicula = '{params['id']}'"
-
+    def timesUpdate(self, id, array):
+        """Actuelizar los horarios"""
+        try:
+            if id:
+                query = f"UPDATE funcion SET fechas = ? WHERE idFuncion = ?;"
+                datos = (pickle.dumps(array), escape(id))
                 data = self.conn.cursor()
                 data = self.conn.execute(query, datos).rowcount
                 if data != 0:
@@ -80,7 +81,7 @@ class Shows(IModel, DBConexion):
         try:
             if id:
                 query = f"DELETE FROM funcion WHERE idFuncion = ?;"
-                datos = (id)
+                datos = ((id,))
                 user = self.conn.cursor()
                 user = self.conn.execute(query, datos).rowcount
                 if user != 0:

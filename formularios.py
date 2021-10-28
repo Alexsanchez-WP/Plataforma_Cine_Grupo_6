@@ -82,54 +82,6 @@ class Registro(FlaskForm):
     boton = SubmitField('Registrar')
 
 
-class ActualizacionUsuarios(FlaskForm):
-
-    nombre = TextField('Nombres *', [
-        Length(min=5, max=100, message='Longitud fuera de rango'),
-        InputRequired(message='El nombre es requerido')
-    ])
-
-    apellido = TextField('Apellidos *', validators=[
-        Length(min=1, max=100, message='Longitud fuera de rango'),
-        InputRequired(message='El apellido es requerido')
-    ])
-
-    telefono = TextField('Telefono / Celular *', validators=[
-        Length(min=7, max=20, message='Longitud fuera de rango'),
-        InputRequired(message='El telefono es requerido')
-    ])
-
-    rol = TextField('Nuevo rol *', validators=[
-        Length(min=1, max=2, message='Longitud fuera de rango'),
-        InputRequired(message='El nuevo rol es requerido')
-    ])
-
-    clave = PasswordField('Contraseña', validators=[
-        Length(min=5, max=40, message='Longitud fuera de rango'),
-    ])
-
-    nacimiento = DateField('Fecha de nacimiento *', validators=[
-        InputRequired(message='Fecha de nacimiento es requerida')
-    ])
-
-    municipio = TextField('Departamento *', validators=[
-        Length(min=5, max=40, message='Longitud fuera de rango'),
-        InputRequired(message='El municipio es requerido')
-    ])
-
-    ciudad = TextField('Ciudad *', validators=[
-        Length(min=5, max=40, message='Longitud fuera de rango'),
-        InputRequired(message='La Ciudad es requerida')
-    ])
-
-    direccion = TextField('Dirección *', validators=[
-        Length(min=7, max=100, message='Longitud fuera de rango'),
-        InputRequired(message='La dirección es requerido')
-    ])
-
-    boton = SubmitField('Registrar')
-
-
 class Pelicula(FlaskForm):
 
     nombre = TextField('Nombres *', [
@@ -160,46 +112,6 @@ class Pelicula(FlaskForm):
 
     banner = FileField('Banner *', validators=[
         FileRequired(message='El banner es requerida'),
-        FileAllowed(['jpg', 'png', 'jpeg'],
-                    'Solo se permiten imagenes jpg, jpeg y png!')
-    ])
-
-    trailer = TextField('Trailer *', validators=[
-        Length(min=5, max=20, message='Longitud fuera de rango [5-20]'),
-        InputRequired(message='El trailer es requerido')
-    ])
-
-    boton = SubmitField('Registrar')
-
-
-class ActualizacionPelicula(FlaskForm):
-
-    nombre = TextField('Nombres *', [
-        Length(min=5, max=100, message='Longitud fuera de rango [5-100]'),
-        InputRequired(message='El nombre es requerido')
-    ])
-
-    actores = TextField('Actores *', validators=[
-        Length(min=7, max=200, message='Longitud fuera de rango [7-100]'),
-        InputRequired(message='Los actores son requeridos')
-    ])
-
-    director = TextField('Director *', validators=[
-        Length(min=7, max=100, message='Longitud fuera de rango [7-100]'),
-        InputRequired(message='El director es requerido')
-    ])
-
-    descripcion = TextAreaField('Descripcion *', validators=[
-        Length(min=1, max=1000, message='Longitud fuera de rango [1-400]'),
-        InputRequired(message='La descripcion es requerida')
-    ])
-
-    imagen = FileField('Imagen *', validators=[
-        FileAllowed(['jpg', 'png', 'jpeg'],
-                    'Solo se permiten imagenes jpg, jpeg y png!')
-    ])
-
-    banner = FileField('Banner *', validators=[
         FileAllowed(['jpg', 'png', 'jpeg'],
                     'Solo se permiten imagenes jpg, jpeg y png!')
     ])

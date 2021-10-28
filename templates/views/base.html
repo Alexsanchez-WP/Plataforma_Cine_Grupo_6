@@ -40,13 +40,19 @@
             <i class="fa fa-search"></i>
         </a>
 
-        {% if 'usr_id' in session %}
-        <a href="/logout/" class=" w3-right" id="r1">Logout</a>
+        {% if session['user_data'] %}
+        <a href="javascript: void(0);" class="w3-right" id="r1">
+            Bienvenido {{ session['user_data'][1] }}
+        </a>
+        <a href="/logout/" class=" w3-right" id="r1">Salir</a>
+        {% if session['user_data'][12] != 1 %}
+        <a href="/admin/" class="w3-right" id="r1">Área administrativa</a>
+        {% endif %}
         {% else %}
         <a href="/login/" class="w3-right" id="r1">Iniciar Sesión</a>
         <a href="/registro/" class="w3-right" id="r2">Registrarse</a>
-        {% endif %}
 
+        {% endif %}
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
@@ -94,11 +100,11 @@
                 <ul class="w3-ul">
                     <li class="w3-margin">
                         <!--Aquí-->
-                        <img src="/static/img/cine-logo.png" height="80px">
-                        <img src="/static/img/McDonalds.png" height="80px">
-                        <img src="/static/img/exito.png" height="80px">
-                        <img src="/static/img/japon.png" height="80px">
-                        <img src="/static/img/logo.png" height="80px">
+                        <img loading="lazy" src="/static/img/cine-logo.png" height="80px">
+                        <img loading="lazy" src="/static/img/McDonalds.png" height="80px">
+                        <img loading="lazy" src="/static/img/exito.png" height="80px">
+                        <img loading="lazy" src="/static/img/japon.png" height="80px">
+                        <img loading="lazy" src="/static/img/logo.png" height="80px">
                     </li>
                 </ul>
             </div>

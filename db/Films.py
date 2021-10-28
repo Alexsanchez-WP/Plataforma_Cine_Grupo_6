@@ -82,7 +82,7 @@ class Films(IModel, DBConexion):
         try:
             if id:
                 query = f"DELETE FROM pelicula WHERE idPelicula = ?;"
-                datos = (id)
+                datos = ((id,))
                 user = self.conn.cursor()
                 user = self.conn.execute(query, datos).rowcount
                 if user != 0:

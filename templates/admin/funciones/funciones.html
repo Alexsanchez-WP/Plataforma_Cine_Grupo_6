@@ -51,22 +51,115 @@
                     data-bs-target="#edit-show-{{ show[0]  }}">
                     <i class="fa fa-edit" aria-hidden="true"></i>
                 </button>
-                <form id="delete-{{ show[0]  }}" class="d-inline" action="/admin/funcion/eliminar/{{ show[0]  }}"
+                <form id="delete-{{ show[0] }}" class="d-inline" action="/admin/funcion/eliminar/{{ show[0] }}"
                     method="post">
                     <button type="submit" class="btn btn-danger" onclick="
-                                    event.preventDefault();
-                                    if(confirm('Seguro que desea eliminar esta funcion')){
-                                        document.getElementById('delete-{{ show[0]  }}').submit(); 
-                                    }; ">
+                            event.preventDefault();
+                            if(confirm('Seguro que desea eliminar esta funcion')){
+                                document.getElementById('delete-{{ show[0] }}').submit(); 
+                            }; ">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </form>
-
             </td>
         </tr>
+
+        <!-- Modal -->
+        <div class="modal fade" id="edit-show-{{show[0]}}" tabindex="-1" aria-labelledby="edit-show-{{show[0]}}Label"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Editar la funcion "{{ show[1] }}"</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container-fluid">
+                            <form id="edit-form-{{show[0]}}" action="/admin/funcion/editar/{{ show[0] }}" method="post"
+                                class="row">
+                                <input type="hidden" name="id" value="{{ show[0] }}">
+                                <div class="mb-3 row">
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Hora de estreno *</label>
+                                        <input type="time" name="hora" class="form-control" required
+                                            value="{{ show[2] }}">
+                                        <small class="text-muted">Agrege el nuevo horario de estreno</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Dia de estreno *</label>
+                                        <input type="date" name="dia" class="form-control" value="{{ show[3] }}"
+                                            required>
+                                        <small class="text-muted">Agrega el nuevo dia de estreno</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Estado de la función *</label>
+                                        <select class="form-control" name="estado" required>
+                                            <option selected value="{{ show[5] }}">
+                                                {{ 'Proximo Estreno' if not show[5] else 'Cartelera' }}
+                                            </option>
+                                            <option value="0">Proximo Estreno</option>
+                                            <option value="1">Cartelera</option>
+                                        </select>
+                                        <small class="text-muted">Nuevo estado de la funcion</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Duración en minutos *</label>
+                                        <input type="number" name="duracion" class="form-control" value="{{ show[7] }}"
+                                            placeholder="Duración" required>
+                                        <small class="text-muted">Nuevo duración en minutos</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Edad apta para ver la función *</label>
+                                        <input type="number" name="edad" class="form-control" placeholder="Edad"
+                                            value="{{ show[8] }}" required>
+                                        <small class="text-muted">Cambiar la edad</small>
+                                    </div>
+                                    <div class="col-4">
+                                        <label for="" class="form-label">Sala *</label>
+                                        <select class="form-control" name="sala" required>
+                                            {% for room in rooms %}
+                                            {% if room[0] == show[4] %}
+                                            <option selected value="{{ room[0] }}">{{ room[1] }}</option>
+                                            {% else %}
+                                            <option value="{{ room[0] }}">{{ room[1] }}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <small class="text-muted">Nueva sala</small>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <div class="col-12">
+                                        <label for="" class="form-label">La pelicula *</label>
+                                        <select class="form-control" name="pelicula" required>
+                                            {% for film in films %}
+                                            {% if film[0] == show[1] %}
+                                            <option selected value="{{ film[0] }}">{{ film[1] }}</option>
+                                            {% else %}
+                                            <option value="{{ film[0] }}">{{ film[1] }}</option>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                        <small class="text-muted">Nueva pelicula</small>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" onclick="
+                                event.preventDefault();
+                                document.getElementById('edit-form-{{show[0]}}').submit(); ">
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endfor %}
-
-
     </tbody>
 </table>
 

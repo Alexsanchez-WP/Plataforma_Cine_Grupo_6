@@ -10,6 +10,14 @@
 
 <!-- formulario de registro -->
 {% block registro %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
 <section class="u-align-center u-clearfix u-custom-color-3 u-section-1" id="sec-d901">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
         <div
@@ -46,6 +54,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-2",
                             placeholder="Apellidos"
                             ) }}
+                            {% if form.apellido.errors %}
+                            <ul class="nav">
+                                {% for error in form.nombre.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-email u-form-group u-form-group-3">
                             {{ form.correo.label }}
@@ -54,6 +69,13 @@
                             u-border-no-top u-custom-color-3 u-input u-input-rectangle u-input-3",
                             placeholder="correo@correo.com"
                             ) }}
+                            {% if form.correo.errors %}
+                            <ul class="nav">
+                                {% for error in form.nombre.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-group-4">
                             {{ form.confirmar_correo.label }}
@@ -62,6 +84,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-4",
                             placeholder="Confirmar correo electrónico"
                             )}}
+                            {% if form.confirmar_correo.errors %}
+                            <ul class="nav">
+                                {% for error in form.confirmar_correo.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-name">
                             {{ form.clave.label }}
@@ -70,6 +99,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-5",
                             placeholder="Contraseña"
                             )}}
+                            {% if form.clave.errors %}
+                            <ul class="nav">
+                                {% for error in form.clave.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-group-6">
                             {{ form.confirmar_clave.label }}
@@ -78,6 +114,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-6",
                             placeholder="Confirmar contraseña"
                             )}}
+                            {% if form.confirmar_clave.errors %}
+                            <ul class="nav">
+                                {% for error in form.confirmar_clave.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-date u-form-group u-form-group-7">
                             {{ form.nacimiento.label }}
@@ -86,6 +129,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-7",
                             placeholder="MM/DD/YYYY"
                             )}}
+                            {% if form.nacimiento.errors %}
+                            <ul class="nav">
+                                {% for error in form.nacimiento.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-address u-form-group u-form-group-8">
                             {{ form.departamento.label }}
@@ -94,6 +144,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-8",
                             placeholder="Departamento"
                             )}}
+                            {% if form.departamento.errors %}
+                            <ul class="nav">
+                                {% for error in form.departamento.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-group-9">
                             {{ form.ciudad.label }}
@@ -102,6 +159,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-9",
                             placeholder="Ciudad de residencia"
                             )}}
+                            {% if form.ciudad.errors %}
+                            <ul class="nav">
+                                {% for error in form.ciudad.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-group-10">
                             {{ form.direccion.label }}
@@ -110,6 +174,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-10",
                             placeholder="Dirección"
                             )}}
+                            {% if form.direccion.errors %}
+                            <ul class="nav">
+                                {% for error in form.direccion.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-group u-form-phone u-form-group-11">
                             {{ form.telefono.label }}
@@ -118,6 +189,13 @@
                             u-custom-color-3 u-input u-input-rectangle u-input-11",
                             placeholder="Telefono / Celular"
                             )}}
+                            {% if form.telefono.errors %}
+                            <ul class="nav">
+                                {% for error in form.telefono.errors %}
+                                <li class="nav-item text-danger">{{ error }} *</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
                         </div>
                         <div class="u-form-agree u-form-group u-form-group-12">
                             <input type="checkbox" id="agree-a3c2" name="agree" class="u-agree-checkbox" required="">

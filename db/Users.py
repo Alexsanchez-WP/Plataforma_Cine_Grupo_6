@@ -65,7 +65,7 @@ class Users(IModel, DBConexion):
         try:
             if id:
                 query = f"DELETE FROM usuario WHERE id = ?;"
-                datos = (id)
+                datos = ((id,))
                 user = self.conn.cursor()
                 user = self.conn.execute(query, datos).rowcount
                 if user != 0:
