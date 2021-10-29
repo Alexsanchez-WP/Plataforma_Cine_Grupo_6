@@ -1,5 +1,352 @@
 {% extends '/views/base.html' %}
 
 {% block ticket %}
-<h1>Comprar ticket </h1>
+
+
+<link rel="stylesheet" href="https://archivos.cinecolombia.com/cineco-cms-frontend/1.0.63/dist/css/bundle.min.css">
+
+<section class="section has-background-grey-1-touch is-rounded-r-l u-pt-9 u-pb-6 is-relative"
+    movie-info="[object Object]" show-products="true">
+    <div class="container">
+        <div class="columns is-multiline is-mobile">
+            <div class="column is-12">
+                <div class="columns is-multiline is-centered">
+                    <div class="column is-12">
+                        <header class="section__header u-pb-4 u-pb-8-desktop">
+                            <h3 class="title is-6">Elegir medio de pago</h3>
+                            <p><b> </b></p>
+                        </header>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-12">
+                <div class="columns is-mobile is-centered is-multiline has-background-grey-3 is-rounded">
+                    <div class="column is-12-mobile is-4-tablet">
+                        <label class="radio-button radio-button--disabled">
+                            <input name="payment-method" type="radio" disabled="disabled" value="cineco">
+                            <div class="radio-button__content">
+                                <div class="payment-method">
+                                    <figure class="payment-method__logo">
+                                        <img src="https://archivos.cinecolombia.com/cineco-cms-frontend/1.0.63/dist/images/tarjeta-cineco.png"
+                                            alt="Tarjeta Cineco">
+                                    </figure>
+
+                                    <div class="payment-method__info">
+                                        <h4 class="payment-method__title">Tarjeta Unicentro</h4>
+                                        <p>Paga con tu Tarjeta Unicentro y obtén un <b>Precio Especial</b> </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="column is-12-mobile is-4-tablet">
+                        <label class="radio-button radio-button--disabled">
+                            <input name="payment-method" type="radio" disabled="disabled" value="platinum">
+                            <div class="radio-button__content">
+                                <div class="payment-method">
+                                    <figure class="payment-method__logo">
+                                        <img src="https://archivos.cinecolombia.com/cineco-cms-frontend/1.0.63/dist/images/tarjeta-platino.png"
+                                            alt="Tarjeta Platino">
+                                    </figure>
+
+                                    <div class="payment-method__info">
+                                        <h4 class="payment-method__title">Tarjeta Platino</h4>
+                                        <p>Completa <b>10 visitas</b> para ser Cliente Platino </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="column is-12-mobile is-4-tablet">
+                        <label class="radio-button radio-button--disabled">
+                            <input name="payment-method" type="radio" disabled="disabled" value="points">
+                            <div class="radio-button__content">
+                                <div class="payment-method">
+                                    <figure class="payment-method__logo">
+                                        <img src="https://archivos.cinecolombia.com/cineco-cms-frontend/1.0.63/dist/images/puntos-cineco.png"
+                                            alt="Puntos Cineco">
+                                    </figure>
+
+                                    <div class="payment-method__info">
+                                        <h4 class="payment-method__title">Puntos Unicentro</h4>
+                                        <p>Usa tus <b>Puntos Unicentro</b> para pagar tus entradas</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-5-mobile is-6-desktop u-pl-0">
+                <label class="radio-button">
+                    <input name="payment-method" type="radio" value="pse">
+                    <div class="radio-button__content">
+                        <div class="payment-method">
+                            <div class="payment-method__info payment-method__info--inline">
+                                <h4 class="payment-method__title">Tarjeta débito</h4>
+                                <img src="/img/pse.png" alt="Tarjeta débito">
+                            </div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <div class="column is-7-mobile is-6-desktop u-pr-0">
+                <label class="radio-button">
+                    <input name="payment-method" type="radio" value="debit_credit">
+                    <div class="radio-button__content">
+                        <div class="payment-method">
+                            <div class="payment-method__info payment-method__info--inline">
+                                <h4 class="payment-method__title">Tarjeta crédito</h4>
+                                <img src="/img/tarjet.png" alt="Tarjeta crédito">
+                            </div>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+
+
+            <div class="column is-7-mobile is--desktop u-pr-0">
+
+                <div class="container is-overflow-hidden">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column is-2">
+                            <P>
+                            <h3 class="title is-6">ELEGIR UBICACIÓN</h3>
+                            </P>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="columns is-multiline is-centered">
+                        <div class="column">
+                            <div data-v-1f0f1006="" max-seats="1" style="height: 497px;">
+                                <div data-v-1f0f1006="" class="__vuescroll"
+                                    style="height: 100%; width: 100%; padding: 0px; position: relative; overflow: hidden;">
+                                    <div class="__panel"
+                                        style="position: relative; box-sizing: border-box; height: 100%; overflow: hidden;">
+                                        <div class="__view"
+                                            style="position: relative; box-sizing: border-box; min-width: 100%; min-height: 100%; width: -webkit-fit-content;">
+                                            <div data-v-1f0f1006="" class="screen-mock">
+                                                <div data-v-1f0f1006="" class="screen-mock__bar">
+                                                </div>
+                                                <h6 data-v-1f0f1006="" class="title is-6">Pantalla</h6>
+                                            </div>
+
+
+                                            <link rel="stylesheet"
+                                                href="{{ url_for('static', filename='css/tickets.css')}}"
+                                                media="screen">
+                                            <p></p>
+                                            <table class="auto-style1">
+                                                <tr id="butaca">
+                                                    <td class="auto-style3">
+                                                        A</td>
+                                                    <td>
+                                                        &nbsp;</td>
+                                                    <td class="auto-style5">&nbsp;</td>
+                                                    <td class="auto-style15">
+                                                        1<img src="/img/silla.png/" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        2<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        3<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        4<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        5<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        6<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        7<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        8<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        9<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        10<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        11<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">&nbsp;</td>
+                                                    <td class="auto-style15">
+                                                        12<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        13<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        14<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        15<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        16<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style15">
+                                                        17<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+
+                                                    <td class="auto-style10">&nbsp;</td>
+                                                    <td class="auto-style12">&nbsp;</td>
+                                                    <td class="auto-style3">A</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="auto-style3">B</td>
+                                                    <td class="auto-style6"></td>
+                                                    <td class="auto-style7"></td>
+                                                    <td class="auto-style14">
+                                                        1<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        2<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        3<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        4<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        5<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        6<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        7<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        8<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        9<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        10<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        11<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style8"></td>
+                                                    <td class="auto-style14">
+                                                        12<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        13<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        14<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        15<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        16<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        17<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+
+                                                    <td class="auto-style11"></td>
+                                                    <td class="auto-style13"></td>
+                                                    <td class="auto-style3">B</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="auto-style3">C</td>
+                                                    <td class="auto-style6"></td>
+                                                    <td class="auto-style7"></td>
+                                                    <td class="auto-style14">
+                                                        1<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        2<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        3<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        4<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        5<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        6<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        7<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        8<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        9<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        10<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        11<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14"></td>
+                                                    <td class="auto-style14">
+                                                        12<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        13<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        14<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        15<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        16<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+                                                    <td class="auto-style14">
+                                                        17<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                    </td>
+
+                                                    <td class="auto-style11"></td>
+                                                    <td class="auto-style13"></td>
+                                                    <td class="auto-style3">C</td>
+                                                </tr>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column is-12">
+                    <div class="has-text-centered">
+                        <a href="#" class="button is-uppercase has-shadow is-primary">Continuar </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
 {% endblock%}
