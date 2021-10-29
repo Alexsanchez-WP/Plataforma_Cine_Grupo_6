@@ -11,6 +11,7 @@ from db.Roles import Roles
 from db.Films import Films
 from db.Shows import Shows
 from db.Rooms import Rooms
+from db.Tickets import Tickets
 from db.Categories import Categories
 
 files_path = "static/uploads/"
@@ -84,7 +85,6 @@ def registro():
                 'tlfn': escape(request.form["telefono"].strip()),
                 'email': escape(request.form["correo"].strip()),
             }
-
             user = Users().create(params)
             if not user:
                 flash(
@@ -99,10 +99,27 @@ def registro():
         return render_template('registro.html', form=reg, title="Registro")
 
 
-@app.route('/tiquetes/', methods=['GET', 'POST'])
+@app.route('/tiquetes/<int:funcion>/<int:horario>/', methods=['GET', 'POST'])
 # TODO:
-def tiquets():
-    return render_template('tiquetes.html')
+def tiquets(funcion=None, horario=None):
+    if request.method == 'GET':
+        return render_template('comprar_ticket.html', title='Compra tickets')
+    else:
+        if funcion and horario:
+            if request.form['payment-method']:
+                params = {
+                    'metodo': escape(request.form['payment-method']).strip(),
+                    'funcion': escape(funcion),
+                    'horario': escape(horario),
+                    'usuario': escape(request.form['user'])
+                }
+                buy = Tickets().create(params)
+                if buy:
+                    flash('A realizado la compra con exito')
+                    return redirect(f'/usuario/')
+            flash(f"Por favor seleccione un metodo de pago {request.form}")
+            return render_template('comprar_ticket.html', title='Compra tickets')
+        return redirect('/')
 
 
 @app.route('/funciones/')
@@ -111,7 +128,7 @@ def funciones():
     return render_template('funciones.html')
 
 
-@app.route('/buscar-pelicula/<string:id>/')
+@app.route('/buscar-pelicula/<int:id>/')
 def buscarPelicula(id=None):
     if not id:
         return redirect('/')
@@ -138,6 +155,24 @@ def cartelera():
     shows = Shows().view(None, '1')
     categories = Categories().view()
     return render_template('cartelera.html', shows=shows, categories=categories)
+
+
+@app.route('/usuario/')
+def usuario():
+    if session.get('user_data'):
+        if session.get('user_data')[12] == 1:
+            tickets = Tickets().view(session.get('user_data')[0])
+            films = Films().list()
+            new_tickets = []
+            for ticket in tickets:
+                tickets_list = list(ticket)
+                if tickets_list[15]:
+                    tickets_list[15] = [datetime.fromisoformat(i).strftime(
+                        "%d %B, %Y - %I:%M %p") for i in pickle.loads(tickets_list[15])]
+                new_tickets.append(tickets_list)
+            return render_template('usuario.html', tickets=new_tickets, films=films)
+    flash("No tiene permiso para ingresar a esta área")
+    return redirect('/login/')
 
 
 @app.route('/logout/')
@@ -224,10 +259,12 @@ def adminUsuarioEditar(id=None):
                 'tlfn': escape(request.form["telefono"].strip()),
             }
             user = Users().edit(params)
-            if not user:
-                flash(
-                    f"Todos los campos marcados con '*' son obligatorios, por favor valide")
+            if user:
+                flash("Usuario editado correctamente")
                 return redirect('/admin/usuarios/')
+            flash(
+                f"Todos los campos marcados con '*' son obligatorios, por favor valide")
+            return redirect('/admin/usuarios/')
     flash("No tiene permiso para ingresar a esta área")
     return redirect('/admin/')
 
@@ -283,8 +320,10 @@ def adminPeliculaVer(id):
         if id != None:
             film = Films().view(escape(id))
             categories = Categories().view()
-            time = datetime.fromisoformat(
-                film[3] + ' ' + film[2]).strftime("%d %B, %Y - %I:%M %p")
+            time = ""
+            if film[10]:
+                time = datetime.fromisoformat(
+                    film[10]).strftime("%d %B, %Y")
             if film:
                 return render_template('/admin/peliculas/pelicula.html', film=film, categories=categories, time=time)
             else:
@@ -518,6 +557,19 @@ def adminFuncionEditar(id=None):
             return redirect('/admin/funciones/')
     flash("No tiene permiso para ingresar a esta área")
     return redirect('/admin/')
+
+
+@app.route('/admin/tickets')
+def adminTickets():
+    tickets = Tickets().view()
+    new_tickets = []
+    for ticket in tickets:
+        tickets_list = list(ticket)
+        if tickets_list[15]:
+            tickets_list[15] = [datetime.fromisoformat(i).strftime(
+                "%d %B, %Y - %I:%M %p") for i in pickle.loads(tickets_list[15])]
+        new_tickets.append(tickets_list)
+    return render_template('admin/tickets/tickets.html', tickets=new_tickets)
 
 
 if __name__ == '__main__':

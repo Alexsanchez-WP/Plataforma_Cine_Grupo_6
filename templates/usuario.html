@@ -1,0 +1,81 @@
+{% extends '/views/base.html' %}
+
+{% block head %}
+<link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+{% endblock %}
+
+{% block ticket %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
+<main>
+    <div class="container py-4">
+        <header class="pb-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <img src="https://joeschmoe.io/api/v1/male/{{ session['user_data'][1] }}" width="100" height="100"
+                    alt="User picture">
+                <span class="fs-4">{{ session['user_data'][1] +' '+ session['user_data'][2] }}</span>
+            </a>
+        </header>
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Bienvenido al cine</h1>
+                <p class="col-md-8 fs-4">Aquí encontrarás tus datos personales, compras y muchos más...</p>
+            </div>
+            <p class="card-text">Correo: <strong>{{ session['user_data'][3] }}</strong></p>
+            <p class="card-text">Nacimiento: <strong>{{ session['user_data'][5] }}</strong></p>
+            <p class="card-text">Departamento: <strong>{{ session['user_data'][6] }}</strong></p>
+            <p class="card-text">Ciudad: <strong>{{ session['user_data'][7] }}</strong></p>
+            <p class="card-text">Direccion: <strong>{{ session['user_data'][8] }}</strong></p>
+            <p class="card-text">Telefono: <strong>{{ session['user_data'][9] }}</strong></p>
+            <p class="card-text">Estado: <strong>{{ 'Activo' if session['user_data'][10] else 'Inactivo' }}</strong></p>
+            <p class="card-text">Creado el: <strong>{{ session['user_data'][11] }}</strong></p>
+
+        </div>
+        <!-- text-white bg-dark -->
+
+        <!-- bg-light border -->
+
+        <div class="row align-items-md-stretch">
+            {% for ticket in tickets %}
+            <div class="my-3 col-md-3">
+                <div class="h-100 p-4 
+                
+                {% if loop.index%2 == 1  %} 
+                    text-white bg-dark
+                {% else %}
+                    bg-light border
+                {% endif %}
+
+                rounded-3">
+                    {% for film in films %}
+                    {% if film[0] == ticket[10] %}
+                    <h3>{{ film[1] }}</h3>
+                    {% endif %}
+                    {% endfor %}
+                    <p>Valor: $ {{ ticket[3] }} COP</p>
+                    <p>Metodo: {{ ticket[8] }}</p>
+                    <p>Fecha: {{ ticket[15][ticket[7]-1] }}</p>
+                    <a href="/buscar-pelicula/{{ ticket[2] }}/" class="btn 
+
+                    {% if loop.index%2 == 1  %} 
+                        btn-outline-light
+                    {% else %}
+                        btn-outline-secondary                    
+                    {% endif %}
+                    
+                    " type="button">Ver datos de
+                        la funcion</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+
+{% endblock%}

@@ -2,6 +2,13 @@
 
 {% block buscar %}
 
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+
 <div class="text-white rounded bg-dark">
     <div class="col-12 px-0 position-relative d-flex align-center">
         <img src="{{ url_for('static', filename=film[16].replace('static/','')) }}" alt="Banner {{ film[10] }}"
@@ -46,6 +53,7 @@
             </div>
         </div>
     </div>
+
     {% if shows %}
     <div class="row my-3">
         <div class="col-md-12">
@@ -55,7 +63,7 @@
                     <div class="row">
                         {% for i in shows %}
                         <div class="col-2">
-                            <a href="/buscar-pelicula/3" class="btn btn-primary">
+                            <a href="/tiquetes/{{ film[0] }}/{{ loop.index }}/" class="btn btn-primary">
                                 {{ i }}
                             </a>
                         </div>

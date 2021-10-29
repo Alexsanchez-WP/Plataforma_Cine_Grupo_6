@@ -1,0 +1,39 @@
+{% extends 'views/admin.html' %}
+
+{% block content %}
+
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+<h1 class="h2 my-3">Tickets</h1>
+
+<table class="mt-5 table table-striped table-inverse table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th class="text-center">ID</th>
+            <th class="text-center">Usuario ID</th>
+            <th class="text-center">Funcion ID</th>
+            <th class="text-center" width="300">Horario</th>
+            <th class="text-center">Metodo de pago</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ticket in tickets %}
+        <tr>
+            <td class="text-center" scope="row">{{ ticket[0] }}</td>
+            <td class="text-center">
+                <a href="/admin/usuario/{{ ticket[1] }}">{{ ticket[1] }}</a>
+            </td>
+            <td class="text-center">
+                <a href="/admin/funcion/{{ ticket[2] }}">{{ ticket[2] }}</a>
+            </td>
+            <td class="text-center">{{ ticket[15][ticket[7]-1] }}</td>
+            <td class="text-center">{{ ticket[8] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

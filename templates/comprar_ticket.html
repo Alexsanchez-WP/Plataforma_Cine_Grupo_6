@@ -1,9 +1,18 @@
 {% extends '/views/base.html' %}
 
+{% block head %}
+<link rel="stylesheet" href="https://archivos.cinecolombia.com/cineco-cms-frontend/1.0.63/dist/css/bundle.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tickets.css')}}" media="screen">
+{% endblock %}
+
 {% block ticket %}
 
-
-<link rel="stylesheet" href="https://archivos.cinecolombia.com/cineco-cms-frontend/1.0.63/dist/css/bundle.min.css">
+{% for mesg in get_flashed_messages() %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ mesg }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
 
 <section class="section has-background-grey-1-touch is-rounded-r-l u-pt-9 u-pb-6 is-relative"
     movie-info="[object Object]" show-products="true">
@@ -79,36 +88,38 @@
                     </div>
                 </div>
             </div>
-
-            <div class="column is-5-mobile is-6-desktop u-pl-0">
-                <label class="radio-button">
-                    <input name="payment-method" type="radio" value="pse">
-                    <div class="radio-button__content">
-                        <div class="payment-method">
-                            <div class="payment-method__info payment-method__info--inline">
-                                <h4 class="payment-method__title">Tarjeta débito</h4>
-                                <img src="/img/pse.png" alt="Tarjeta débito">
+            <form id="sale-ticket" class="d-flex w-100" method="post">
+                {% if session['user_data'] %}
+                <input type="hidden" name="user" value="{{ session['user_data'][0] }}">
+                {% endif %}
+                <div class="column is-5-mobile is-6-desktop u-pl-0">
+                    <label class="radio-button">
+                        <input name="payment-method" type="radio" value="debito" checked>
+                        <div class="radio-button__content">
+                            <div class="payment-method">
+                                <div class="payment-method__info payment-method__info--inline">
+                                    <h4 class="payment-method__title">Tarjeta débito - $ 10.000</h4>
+                                    <img src="{{ url_for('static', filename='/img/pse.png') }}" alt="Tarjeta débito">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </label>
-            </div>
-
-            <div class="column is-7-mobile is-6-desktop u-pr-0">
-                <label class="radio-button">
-                    <input name="payment-method" type="radio" value="debit_credit">
-                    <div class="radio-button__content">
-                        <div class="payment-method">
-                            <div class="payment-method__info payment-method__info--inline">
-                                <h4 class="payment-method__title">Tarjeta crédito</h4>
-                                <img src="/img/tarjet.png" alt="Tarjeta crédito">
+                    </label>
+                </div>
+                <div class="column is-7-mobile is-6-desktop u-pr-0">
+                    <label class="radio-button">
+                        <input name="payment-method" type="radio" value="credito">
+                        <div class="radio-button__content">
+                            <div class="payment-method">
+                                <div class="payment-method__info payment-method__info--inline">
+                                    <h4 class="payment-method__title">Tarjeta crédito - $ 10.000</h4>
+                                    <img src="{{ url_for('static', filename='/img/tarjetac.png') }}"
+                                        alt="Tarjeta crédito">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </label>
-            </div>
-
-
+                    </label>
+                </div>
+            </form>
 
             <div class="column is-7-mobile is--desktop u-pr-0">
 
@@ -121,7 +132,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="container">
                     <div class="columns is-multiline is-centered">
                         <div class="column">
@@ -137,12 +147,6 @@
                                                 </div>
                                                 <h6 data-v-1f0f1006="" class="title is-6">Pantalla</h6>
                                             </div>
-
-
-                                            <link rel="stylesheet"
-                                                href="{{ url_for('static', filename='css/tickets.css')}}"
-                                                media="screen">
-                                            <p></p>
                                             <table class="auto-style1">
                                                 <tr id="butaca">
                                                     <td class="auto-style3">
@@ -151,56 +155,73 @@
                                                         &nbsp;</td>
                                                     <td class="auto-style5">&nbsp;</td>
                                                     <td class="auto-style15">
-                                                        1<img src="/img/silla.png/" style="height: 65px; width: 65px" />
+                                                        1<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        2<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        2<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        3<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        3<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        4<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        4<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        5<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        5<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        6<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        6<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        7<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        7<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        8<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        8<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        9<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        9<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        10<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        10<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        11<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        11<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">&nbsp;</td>
                                                     <td class="auto-style15">
-                                                        12<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        12<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        13<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        13<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        14<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        14<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        15<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        15<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        16<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        16<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style15">
-                                                        17<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        17<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
 
                                                     <td class="auto-style10">&nbsp;</td>
@@ -212,56 +233,73 @@
                                                     <td class="auto-style6"></td>
                                                     <td class="auto-style7"></td>
                                                     <td class="auto-style14">
-                                                        1<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        1<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        2<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        2<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        3<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        3<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        4<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        4<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        5<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        5<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        6<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        6<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        7<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        7<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        8<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        8<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        9<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        9<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        10<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        10<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        11<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        11<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style8"></td>
                                                     <td class="auto-style14">
-                                                        12<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        12<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        13<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        13<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        14<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        14<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        15<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        15<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        16<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        16<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        17<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        17<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
 
                                                     <td class="auto-style11"></td>
@@ -273,56 +311,73 @@
                                                     <td class="auto-style6"></td>
                                                     <td class="auto-style7"></td>
                                                     <td class="auto-style14">
-                                                        1<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        1<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        2<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        2<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        3<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        3<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        4<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        4<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        5<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        5<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        6<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        6<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        7<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        7<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        8<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        8<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        9<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        9<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        10<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        10<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        11<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        11<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14"></td>
                                                     <td class="auto-style14">
-                                                        12<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        12<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        13<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        13<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        14<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        14<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        15<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        15<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        16<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        16<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
                                                     <td class="auto-style14">
-                                                        17<img src="/img/silla.png" style="height: 65px; width: 65px" />
+                                                        17<img src="{{ url_for('static', filename='/img/silla.png') }}"
+                                                            style="height: 65px; width: 65px" />
                                                     </td>
 
                                                     <td class="auto-style11"></td>
@@ -339,14 +394,31 @@
                         </div>
                     </div>
                 </div>
-
+                {% if session['user_data'] %}
+                {% if session['user_data'][12] == 1 %}
                 <div class="column is-12">
                     <div class="has-text-centered">
-                        <a href="#" class="button is-uppercase has-shadow is-primary">Continuar </a>
+                        <button class="button is-uppercase has-shadow is-primary" type="button" onclick="
+                                event.preventDefault();
+                                document.querySelector('#sale-ticket').submit();
+                            ">
+                            Continuar con la compra
+                        </button>
                     </div>
                 </div>
+                {% endif %}
+                {% else %}
+                <div class="column is-12">
+                    <div class="has-text-centered">
+                        <a href="/login" class="button is-uppercase has-shadow is-primary">
+                            Inicia sesión para poder comprar
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
+    </div>
 </section>
 
 {% endblock%}

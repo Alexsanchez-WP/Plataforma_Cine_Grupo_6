@@ -41,12 +41,13 @@
         </a>
 
         {% if session['user_data'] %}
-        <a href="javascript: void(0);" class="w3-right" id="r1">
-            Bienvenido {{ session['user_data'][1] }}
-        </a>
         <a href="/logout/" class=" w3-right" id="r1">Salir</a>
         {% if session['user_data'][12] != 1 %}
         <a href="/admin/" class="w3-right" id="r1">Área administrativa</a>
+        {% else %}
+        <a href="/usuario/" class="w3-right" id="r1">
+            Bienvenido {{ session['user_data'][1] }}
+        </a>
         {% endif %}
         {% else %}
         <a href="/login/" class="w3-right" id="r1">Iniciar Sesión</a>
@@ -133,5 +134,17 @@
     {% block scripts %}
     <!-- Bloque para incluir archvos al footer - scripts -->
     {% endblock %}
-
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/617beecff7c0440a592094be/1fj61pn1b';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 </body>
