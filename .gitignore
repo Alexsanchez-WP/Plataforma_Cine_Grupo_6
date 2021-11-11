@@ -1,5 +1,6 @@
-/.vs
-/__pycache__
+.vs/
+__pycache__/
 *.pyc
 *.txt
 temp.py
+venv/
